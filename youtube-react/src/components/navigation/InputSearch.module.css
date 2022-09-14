@@ -1,0 +1,15 @@
+.inputSearch, .buttonSearch {
+    all: unset;
+    height: 40px;
+}
+
+.inputSearch {
+    border: 1px solid rgba(0, 0, 0, 0.103);
+}
+
+.buttonSearch {
+    font-weight: 200;
+    border: 1px solid rgba(0, 0, 0, 0.103);
+    padding: 0 20px;
+}
+
