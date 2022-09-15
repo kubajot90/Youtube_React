@@ -1,0 +1,9 @@
+.VideosSection{
+    position: absolute;
+    top:56px ;
+    left: 72px;
+    width:  calc(100vw - 72px);
+    min-height: calc(100vh - 56px);
+    background-color:rgba(230, 230, 230, 0.238);
+    /* background-color:red; */
+}
