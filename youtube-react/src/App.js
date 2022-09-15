@@ -1,9 +1,16 @@
-import './App.css';
-import Navigation from './components/navigation/Navigation'
+
+import Navigation from './components/navigation/Navigation';
+import SideBar from './components/SideBar';
+
+import classes from './App.module.css';
+import { Fragment } from 'react';
 
 function App() {
 return(
-  <Navigation/>
+  <Fragment>
+    <SideBar/>
+    <Navigation/>
+  </Fragment>
 )
 }
 

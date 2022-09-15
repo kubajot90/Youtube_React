@@ -1,16 +1,15 @@
 import { Fragment } from 'react';
+import { IoSearchOutline } from 'react-icons/io5';
 import classes from './InputSearch.module.css';
 
 const InputSearch=()=>{
     return(
-        <Fragment>
+        <div className={classes.inputBox}>
             <input placeholder="Szukaj" className={classes.inputSearch}/>
             <button className={classes.buttonSearch}>
-                <span className="material-symbols-outlined">
-                 search
-                </span>
+                <IoSearchOutline className={classes.searchIcon}/>
             </button>
-        </Fragment>
+        </div>
     )
 }
 
