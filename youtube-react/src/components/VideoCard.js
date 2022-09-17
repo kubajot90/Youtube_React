@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import image from '../assets/exampleIMG.jpg';
 import { Fragment } from 'react';
 
-const VideoCard=()=>{
+const VideoCard=(props)=>{
     return(
     // <Fragment>
     //     <div className={classes.card}>
@@ -20,17 +20,22 @@ const VideoCard=()=>{
     //     </div>
     // </Fragment>
   
-   
+ 
     
-        <Card  className="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-1 m-2 flex-grow-1">
-          <Card.Img variant="top" src="holder.js/100px180" />
+        <Card style={{ minWidth: '277px' }} className="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-1 m-3 flex-grow-1">
+          <Card.Img variant="top" src={props.thumbnailUrl} />
           <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            <div className={classes.cardDescription}>
+                <div className={classes.profileImgBox}>
+                  <img className={classes.profileImg} src={props.profileImgUrl} alt='Profile photos'></img>
+                </div>
+                <div className={classes.descriptionBox}>
+                    <span className={classes.videoTitle}>{props.title}</span>
+                    <span className={classes.chanelTitle}>Some great chanel</span>
+                    <span className={classes.date}>3 miesiące temu.</span>
+                </div>
+            </div>
+
           </Card.Body>
         </Card>
     
