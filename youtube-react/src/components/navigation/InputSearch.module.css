@@ -8,6 +8,10 @@
     left: 0;
 }
 
+::placeholder {
+    font-size: 1.6rem;
+}
+
 .inputSearch, .buttonSearch {
     all: unset;
     height: 40px;
@@ -42,7 +46,7 @@
 }
 
 .searchIcon {
-    height: 1.4rem;
-    width: 1.4rem;
+    height: 2.2rem;
+    width: 2.2rem;
 }
 
