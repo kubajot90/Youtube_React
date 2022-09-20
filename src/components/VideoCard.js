@@ -8,7 +8,7 @@ const VideoCard=(props)=>{
   
   const viewsCounter=()=>{
     let viewsCount = parseInt(props.viewCount);
-
+    
     if(viewsCount < 5){
       setViews(`${viewsCount.toString().slice(0, 1)} wyświetlenia`);
     } if(viewsCount < 10){

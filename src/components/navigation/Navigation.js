@@ -6,7 +6,7 @@ import classes from './Navigation.module.css';
 function Navigation() {
   return (
     <nav className={classes.navigation}>
-      <img src={logoSvg} alt="Youtube logo"/>
+      <img src={logoSvg} alt="Youtube logo" className={classes.logoImage}/>
       <InputSearch classname={classes.inputSearch}/>
     </nav>
     

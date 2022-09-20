@@ -3,7 +3,7 @@ import VideoCard from "./VideoCard";
 import classes from './VideosSection.module.css';
 
  const VideosSection=()=>{
-    const apiKey= 'AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k';
+    const apiKey= 'AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I';
     const [search, setSearch] = useState('programming')
 
     const [videos, setVideos] = useState([]);
@@ -14,14 +14,12 @@ import classes from './VideosSection.module.css';
 
     useEffect(()=>{
         const fetchVideos = ()=>{
-            fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=4`).then((response)=>response.json()).then((responseData)=>{
+            fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=4&`).then((response)=>response.json()).then((responseData)=>{
                 if(responseData.items.length){
                     setVideos(responseData.items)
                 }
-                
             })
-
-
+           
         }
         fetchVideos()
     }, [])
@@ -32,7 +30,8 @@ import classes from './VideosSection.module.css';
         if(videos.length){
             setChannelsIdArr();
             fetchUrl() 
-           
+           console.log('videos');
+           console.log(videos);
         }
        
      },
@@ -51,7 +50,8 @@ import classes from './VideosSection.module.css';
       
         const views = responseData.items[0].statistics.viewCount;
         const updatedValues = {[id]:{imgUrl: url, videoViews : views}};
-       
+    //    console.log('responseData');
+    //    console.log(responseData);
           setProfilesImgObj(prevState => {
             return {...prevState, ...updatedValues};
           });
@@ -74,7 +74,8 @@ import classes from './VideosSection.module.css';
     const createCardsFunc=()=>{
         const createNewCards = videos.map((video)=>{
             const profileObj = profilesImgObj[video.snippet.channelId];
-    
+    // console.log('profilesImgObj');
+    // console.log(profilesImgObj);
            return <VideoCard thumbnailUrl={video.snippet.thumbnails.high.url} profileImgUrl={profileObj.imgUrl} title={video.snippet.title} channelTitle={video.snippet.channelTitle} key={video.id.videoId} date={video.snippet.publishedAt}  viewCount={profileObj.videoViews} />
         }
         )
