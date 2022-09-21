@@ -1,15 +1,27 @@
-import { Fragment } from 'react';
+import {useEffect, useState} from 'react'
 import { IoSearchOutline } from 'react-icons/io5';
 import classes from './InputSearch.module.css';
 
-const InputSearch=()=>{
+const InputSearch=(props)=>{
+    const [searchTerm, setSearchTerm] = useState('')
+
+    const searchHandler=(e)=>{
+        e.preventDefault();
+        setSearchTerm(e.target[0].value);
+       ;
+    }
+
+    useEffect(()=>{
+        props.searchHandler(searchTerm)
+    },[searchTerm])
+
     return(
-        <div className={classes.inputBox}>
+        <form onSubmit={searchHandler} className={classes.inputBox}>
             <input placeholder="Szukaj" className={classes.inputSearch}/>
-            <button className={classes.buttonSearch}>
+            <button type='submit' className={classes.buttonSearch}>
                 <IoSearchOutline className={classes.searchIcon}/>
             </button>
-        </div>
+        </form>
     )
 }
 

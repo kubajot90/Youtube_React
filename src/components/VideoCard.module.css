@@ -34,7 +34,7 @@ flex-basis: 82%;
     font-size: 1.4rem;
     font-weight: bold;
 }
- .channelTitle, .viewCount {
+ .channelTitle {
     font-size: 1.2rem;
     color: rgb(110, 110, 110);
 }
@@ -45,14 +45,4 @@ flex-basis: 82%;
 
 .subtitlesBox {
     display: flex;
-}
-
-.viewCount {
-    white-space: nowrap;
-}
-
-.viewCount::after {
-  content: "•";
-  margin: 0 4px;
-  color: rgb(110, 110, 110);
 }

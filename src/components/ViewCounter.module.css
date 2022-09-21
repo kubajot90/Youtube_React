@@ -1,0 +1,12 @@
+
+.viewCount {
+    white-space: nowrap;
+    font-size: 1.2rem;
+    color: rgb(110, 110, 110);
+}
+
+.viewCount::after {
+  content: "•";
+  margin: 0 4px;
+  color: rgb(110, 110, 110);
+}

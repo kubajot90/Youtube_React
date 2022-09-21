@@ -3,11 +3,15 @@ import InputSearch from './InputSearch'
 
 import classes from './Navigation.module.css';
 
-function Navigation() {
+function Navigation(props) {
+  const searchHandler=(value)=>{
+    props.searchHandler(value);
+  }
+
   return (
     <nav className={classes.navigation}>
       <img src={logoSvg} alt="Youtube logo" className={classes.logoImage}/>
-      <InputSearch classname={classes.inputSearch}/>
+      <InputSearch classname={classes.inputSearch} searchHandler={searchHandler}/>
     </nav>
     
 
