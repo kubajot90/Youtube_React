@@ -7,8 +7,9 @@ const InputSearch=(props)=>{
 
     const searchHandler=(e)=>{
         e.preventDefault();
-        setSearchTerm(e.target[0].value);
-       ;
+        const term = e.target[0].value.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\u0142/g, "l").replace(/\s/g, "%20");
+        setSearchTerm(term);
+       
     }
 
     useEffect(()=>{

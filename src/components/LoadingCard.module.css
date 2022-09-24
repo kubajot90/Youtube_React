@@ -1,0 +1,41 @@
+.loadingImg {
+    width: 279px; 
+    height: 180px;
+    background-color: rgb(228, 228, 228);
+  
+}
+
+.profileImg {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    /* align-self: center; */
+    margin-top: 16px;
+    margin-right: 13px;
+    border-radius: 50%;
+    background-color: rgb(228, 228, 228);
+}
+
+.profileDescription {
+   width: 100%;
+}
+
+.profileDescription::before {
+    width: 90%;
+   
+}
+
+.profileDescription::after {
+    width: 60%;
+    
+}
+
+.profileDescription::after,
+.profileDescription::before {
+    content: '';
+    display: block;
+    height: 15px;
+    margin-top: 13px;
+    border-radius: 2px;
+    background-color: rgb(228, 228, 228);
+}

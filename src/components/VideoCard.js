@@ -6,7 +6,7 @@ import DateCounter from './DateCounter'
 const VideoCard=(props)=>{
   
     return(    
-       <Card style={{ minWidth: '277px' }} className="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-1 m-3 flex-grow-1">
+       <Card style={{ minWidth: '277px', background:'transparent' }} className="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-1 m-3 flex-grow-1">
           <Card.Img variant="top" src={props.thumbnailUrl} />
           <Card.Body>
             <div className={classes.cardDescription}>

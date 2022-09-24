@@ -12,7 +12,7 @@ const Main=()=>{
     return(
         <Fragment>
             <Navigation searchHandler={searchHandler}/>
-            <VideosSection  searchHandler={searchTerm}/>
+            <VideosSection searchHandler={searchTerm}/>
         </Fragment>
     )
 }

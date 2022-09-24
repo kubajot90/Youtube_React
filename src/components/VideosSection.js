@@ -1,41 +1,42 @@
-import {useEffect, useState } from "react";
+import {useEffect, useState, useRef } from "react";
 import VideoCard from "./VideoCard";
+import LoadingCard from "./LoadingCard";
+
 import classes from './VideosSection.module.css';
 
  const VideosSection=(props)=>{
-    const apiKey= 'AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k';
+    const apiKey= 'AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw';
     const [search, setSearch] = useState('programming')
 
     const [videos, setVideos] = useState([]);
     const [channelIds, setChannelIds] = useState([]);
-    const [profilesImgObj, setProfilesImgObj] = useState({});
+    const [profilesImgObj, setProfilesImgObj] = useState([]);
     const [createCards, setCreateCards] = useState('');
 
-    const [videosAmount, setVideosAmount] = useState(1);
     const [canFetch, setCanFetch] = useState(false);
 
-    
+    const canLoadMore = useRef(true);
+    const videosAmount = useRef(4);
+
     useEffect(()=>{
+        videosAmount.current = 4;
         props.searchHandler && setSearch(props.searchHandler);
     },[props.searchHandler])
     
     useEffect(()=>{
-        console.log('search');
-        console.log(search);
-         props.searchHandler && fetchMoreVideos();
+         props.searchHandler && setCanFetch(true);
     },[search])
 
    
     const fetchVideos = ()=>{
-    fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount}`)
+    fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount.current}`)
     .then((response)=>response.json())
     .then((responseData)=>{
         if(responseData.items.length){
             setVideos(responseData.items)
         }
     })
-   
-}
+    }
 
     useEffect(()=>{
         fetchVideos()
@@ -43,9 +44,9 @@ import classes from './VideosSection.module.css';
 
 
     useEffect( () => {
-        setProfilesImgObj({})
-        if(videos.length === videosAmount ){
-            setChannelsIdArr();
+        setProfilesImgObj(prev =>[])
+        if(videos.length === videosAmount.current ){
+            setChannelsIdArr();  
         }
      },
      [videos]);
@@ -55,72 +56,92 @@ import classes from './VideosSection.module.css';
         videos.forEach((video)=>(
             idsArr.push(video.snippet.channelId)
         ));
-            // setChannelIds(oldArray => [...oldArray, video.snippet.channelId]))
         setChannelIds(idsArr)
     }
 
     useEffect( () => {
-        fetchUrl();
+        fetchProfileImgUrl();
     },[channelIds]);
 
-    const fetchProfileImgUrl =(id)=>{ 
-       fetch(`https://youtube.googleapis.com/youtube/v3/channels?key=${apiKey}&part=snippet&part=statistics&id=${id}`)
-       .then((response)=>response.json())
-       .then((responseData)=>{
-        setProfilesImgObj(prevState => {
-            return {...prevState, ...{[id]:{imgUrl: responseData.items[0].snippet.thumbnails.medium.url, videoViews : responseData.items[0].statistics.viewCount}}};
-          });
-       })
+    const fetchProfileImgUrl =()=>{ 
+        let profilesArr =[];
+        channelIds.forEach((id)=>{
+            fetch(`https://youtube.googleapis.com/youtube/v3/channels?key=${apiKey}&part=snippet&part=statistics&id=${id}`)
+        .then((response)=>response.json())
+        .then((responseData)=>{
+            const obj = {
+                    id: id, 
+                    imgUrl: responseData.items[0].snippet.thumbnails.medium.url,
+                    videoViews : responseData.items[0].statistics.viewCount,
+                    };
+                   profilesArr.push(obj);
+            })
+            .then(()=>setProfilesImgObj([...profilesArr]))
+            });
     }
    
     useEffect(()=>{
-        if(Object.keys(profilesImgObj).length === videos.length){
+        if(profilesImgObj.length === videos.length ){
             createCardsFunc()
         }
     },[profilesImgObj]);
 
-    const fetchUrl=()=>{
-        channelIds.forEach((id=>{ 
-                fetchProfileImgUrl(id)
-            }
-        ))
-    } 
-
     const createCardsFunc=()=>{
         const createNewCards = videos.map((video)=>{
-
-            const profileObj = profilesImgObj[video.snippet.channelId];
-
+            const profileObj = profilesImgObj.filter((obj)=>{
+               return obj.id === video.snippet.channelId
+            })
+            
            return <VideoCard thumbnailUrl={video.snippet.thumbnails.high.url} 
            title={video.snippet.title} 
            channelTitle={video.snippet.channelTitle} 
            key={video.id.videoId} 
            date={video.snippet.publishedAt}  
-           profileImgUrl={profileObj.imgUrl} 
-           viewCount={profileObj.videoViews}
+           profileImgUrl={profileObj[0].imgUrl} 
+           viewCount={profileObj[0].videoViews}
            />
         }
         )
         setCreateCards(createNewCards)
+        canLoadMore.current = true;
     }
-   
+  
     const fetchMoreVideos =()=> {
-        console.log('fetchmorevideos');
-        setVideosAmount((prev)=> prev + 1);
+        videosAmount.current = videosAmount.current + 4; 
         setCanFetch(true);
     }
 
     useEffect(()=>{
         if(canFetch){
-            console.log('fetch video');
             fetchVideos();
             setCanFetch(false)
         }
-    },[canFetch])
+    },[canFetch]);
 
+    const setScroll = () => {
+       const heightPercentage = `${(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100}`
+    
+    if(heightPercentage > 99 && canLoadMore.current){
+        loadMoreVideos()
+    }
+}
+  
+    useEffect(() => {
+      window.addEventListener("scroll", setScroll);
+      return () => {
+        window.removeEventListener("scroll", setScroll);
+      };
+    }, []);
+
+    const loadMoreVideos =()=>{
+        canLoadMore.current = false;
+        fetchMoreVideos();
+    }
+    
 return(
     <div onClick={fetchMoreVideos} className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
             { createCards}
+            <LoadingCard/><LoadingCard/><LoadingCard/><LoadingCard/>
     </div>
 ) 
 }

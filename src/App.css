@@ -1,7 +1,7 @@
-.card, .card-img-top {
+.card, .card-img-top  {
 border-radius: 0;
 border: none;
-background-color: transparent;
+background-color: transparent ;
 }
 
 .card-body {
