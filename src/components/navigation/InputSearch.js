@@ -17,11 +17,16 @@ const InputSearch=(props)=>{
     },[searchTerm])
 
     return(
-        <form onSubmit={searchHandler} className={classes.inputBox}>
-            <input placeholder="Szukaj" className={classes.inputSearch}/>
+        <form onSubmit={searchHandler} className={classes.inputForm}>
+            <div className={classes.inputBox}>
+                <input placeholder="Szukaj"  className={classes.inputSearch}/>
+                <div className={classes.iconBox}>
+                    <IoSearchOutline className={classes.searchIconFocus}/>
+                </div>
             <button type='submit' className={classes.buttonSearch}>
                 <IoSearchOutline className={classes.searchIcon}/>
             </button>
+            </div>
         </form>
     )
 }

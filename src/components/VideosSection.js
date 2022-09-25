@@ -5,7 +5,7 @@ import LoadingCard from "./LoadingCard";
 import classes from './VideosSection.module.css';
 
  const VideosSection=(props)=>{
-    const apiKey= 'AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw';
+    const apiKey= 'AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I';
     const [search, setSearch] = useState('programming')
 
     const [videos, setVideos] = useState([]);
@@ -14,6 +14,7 @@ import classes from './VideosSection.module.css';
     const [createCards, setCreateCards] = useState('');
 
     const [canFetch, setCanFetch] = useState(false);
+    const [isSearch, setIsSearch] = useState(false);
 
     const canLoadMore = useRef(true);
     const videosAmount = useRef(4);
@@ -25,6 +26,7 @@ import classes from './VideosSection.module.css';
     
     useEffect(()=>{
          props.searchHandler && setCanFetch(true);
+         props.searchHandler && setIsSearch(true);
     },[search])
 
    
@@ -44,6 +46,7 @@ import classes from './VideosSection.module.css';
 
 
     useEffect( () => {
+        console.log(videos);
         setProfilesImgObj(prev =>[])
         if(videos.length === videosAmount.current ){
             setChannelsIdArr();  
@@ -92,13 +95,15 @@ import classes from './VideosSection.module.css';
                return obj.id === video.snippet.channelId
             })
             
-           return <VideoCard thumbnailUrl={video.snippet.thumbnails.high.url} 
+           return <VideoCard isSearch={isSearch}
+           thumbnailUrl={video.snippet.thumbnails.high.url} 
            title={video.snippet.title} 
            channelTitle={video.snippet.channelTitle} 
            key={video.id.videoId} 
            date={video.snippet.publishedAt}  
            profileImgUrl={profileObj[0].imgUrl} 
            viewCount={profileObj[0].videoViews}
+           description={video.snippet.description}
            />
         }
         )
