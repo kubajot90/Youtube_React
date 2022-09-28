@@ -1,0 +1,8 @@
+.VideoPlayer {
+    background-color: #333;
+    position: absolute;
+    top:56px ;
+    min-height: calc(100vh - 56px);
+    width: 100%;
+    /* background-color:rgba(230, 230, 230, 0.238); */
+}

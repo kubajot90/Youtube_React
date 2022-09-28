@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef } from "react";
+import {useEffect, useState, useRef} from "react";
 import VideoCard from "./VideoCard";
 import LoadingCard from "./LoadingCard";
 
@@ -18,6 +18,8 @@ import classes from './VideosSection.module.css';
 
     const canLoadMore = useRef(true);
     const videosAmount = useRef(4);
+
+   
 
     useEffect(()=>{
         videosAmount.current = 4;
@@ -89,22 +91,25 @@ import classes from './VideosSection.module.css';
         }
     },[profilesImgObj]);
 
+
     const createCardsFunc=()=>{
         const createNewCards = videos.map((video)=>{
             const profileObj = profilesImgObj.filter((obj)=>{
                return obj.id === video.snippet.channelId
             })
-            
-           return <VideoCard isSearch={isSearch}
+           
+           return  <VideoCard isSearch={isSearch}
            thumbnailUrl={video.snippet.thumbnails.high.url} 
            title={video.snippet.title} 
            channelTitle={video.snippet.channelTitle} 
            key={video.id.videoId} 
+           id={video.id.videoId} 
            date={video.snippet.publishedAt}  
            profileImgUrl={profileObj[0].imgUrl} 
            viewCount={profileObj[0].videoViews}
            description={video.snippet.description}
            />
+          
         }
         )
         setCreateCards(createNewCards)
@@ -143,10 +148,14 @@ import classes from './VideosSection.module.css';
         fetchMoreVideos();
     }
     
+    const loadingCards=    
+    <><LoadingCard/><LoadingCard/><LoadingCard/><LoadingCard/></>;
+
 return(
-    <div onClick={fetchMoreVideos} className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
+    <div  className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
             { createCards}
-            <LoadingCard/><LoadingCard/><LoadingCard/><LoadingCard/>
+            {!isSearch && loadingCards}
+          
     </div>
 ) 
 }

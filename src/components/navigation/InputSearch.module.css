@@ -97,4 +97,17 @@
     height: 2.2rem;
     width: 2.2rem;
 }
+.iconClear {
+    all: unset;
+}
 
+.inputXMark {
+    position: absolute;
+    right: 69px;
+    top: 50%;
+    transform: translateY(-50%);
+    height:2.7rem;
+    width: 2.7rem;
+   color: rgb(99, 99, 99);
+
+}

@@ -1,15 +1,21 @@
 import SideBar from './components/SideBar';
-import Main from './components/Main.js';
+import Main from './components/Main';
+import { Fragment} from 'react';
+import { useContext } from 'react';
+import { PlayerOpenContext } from './context/PlayerOpenContext';
 
-import { Fragment } from 'react';
-import './App.css'
+
+import './App.css';
+
 
 function App() {
 
+const isPlayerOpen = useContext(PlayerOpenContext);
+
 return(
   <Fragment>
-    <SideBar/>
-    <Main/>
+     {!isPlayerOpen && <SideBar/>}
+      <Main/>
   </Fragment>
 )
 }

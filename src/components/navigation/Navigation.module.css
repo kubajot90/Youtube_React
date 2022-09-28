@@ -9,6 +9,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     z-index: 99;
 }
-/* .logoImage {
-    height: 25px;
-} */
+.logoImage {
+    z-index: inherit;
+    cursor: pointer;
+}
