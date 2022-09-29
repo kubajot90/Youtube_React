@@ -1,10 +1,10 @@
-import React, {useState,  useEffect, useContext} from 'react';
+import React, {useState,  useEffect} from 'react';
 
 export const PlayerOpenContext = React.createContext();
 export const PlayerOpenUpdateContext = React.createContext();
 
 const PlayerOpenProvider =({children})=>{
-    const [isPlayerOpen, setIsPlayerOpen] = useState(true);
+    const [isPlayerOpen, setIsPlayerOpen] = useState(false);
 
 const playerIsOpen=(value)=>{
     setIsPlayerOpen(value)

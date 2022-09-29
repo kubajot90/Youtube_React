@@ -1,23 +1,26 @@
 import {useEffect, useState, useRef} from "react";
 import VideoCard from "./VideoCard";
 import LoadingCard from "./LoadingCard";
+// import { useNavigate } from "react-router-dom";
 
 import classes from './VideosSection.module.css';
 
  const VideosSection=(props)=>{
-    const apiKey= 'AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I';
+    const apiKey= 'AIzaSyDGNmsrYlb33hVN_6hEZrjLQaQFo1aZ2Xw';
     const [search, setSearch] = useState('programming')
-
+    const defaultSearch = 'programming';
+    
     const [videos, setVideos] = useState([]);
     const [channelIds, setChannelIds] = useState([]);
     const [profilesImgObj, setProfilesImgObj] = useState([]);
     const [createCards, setCreateCards] = useState('');
-
+    
     const [canFetch, setCanFetch] = useState(false);
     const [isSearch, setIsSearch] = useState(false);
-
+    
     const canLoadMore = useRef(true);
     const videosAmount = useRef(4);
+    // const navigate = useNavigate();
 
    
 
@@ -27,28 +30,31 @@ import classes from './VideosSection.module.css';
     },[props.searchHandler])
     
     useEffect(()=>{
-         props.searchHandler && setCanFetch(true);
-         props.searchHandler && setIsSearch(true);
+       
+        
+         if(search !== defaultSearch){
+            props.searchHandler && setCanFetch(true);
+            props.searchHandler && setIsSearch(true);
+         }
     },[search])
 
    
     const fetchVideos = ()=>{
-    fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount.current}`)
-    .then((response)=>response.json())
-    .then((responseData)=>{
-        if(responseData.items.length){
-            setVideos(responseData.items)
-        }
-    })
+        fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount.current}`)
+        .then((response)=> response.json())
+        .then((responseData)=>{
+            if(responseData.items.length){
+                setVideos(responseData.items)
+            }
+        })
     }
 
     useEffect(()=>{
-        fetchVideos()
+        !props.searchHandler && fetchVideos();
     }, [])
 
 
     useEffect( () => {
-        console.log(videos);
         setProfilesImgObj(prev =>[])
         if(videos.length === videosAmount.current ){
             setChannelsIdArr();  
@@ -86,7 +92,7 @@ import classes from './VideosSection.module.css';
     }
    
     useEffect(()=>{
-        if(profilesImgObj.length === videos.length ){
+        if(profilesImgObj.length === videos.length && videos.length === videosAmount.current){
             createCardsFunc()
         }
     },[profilesImgObj]);
@@ -153,7 +159,7 @@ import classes from './VideosSection.module.css';
 
 return(
     <div  className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
-            { createCards}
+            { createCards }
             {!isSearch && loadingCards}
           
     </div>
@@ -162,8 +168,12 @@ return(
 
  export default VideosSection;
 
-    //   API KEY: AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I
-    //   API KEY: AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw
-    //   API KEY: AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8
-    //   API KEY: AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k
-    //   API KEY: AIzaSyBNOVRGK5yft4Ch2RWyKOITKHzkT1Y9SgA
+    //   API KEY: AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I -
+    //   API KEY: AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw -
+    //   API KEY: AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8 -
+    //   API KEY: AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k -
+    //   API KEY: AIzaSyBNOVRGK5yft4Ch2RWyKOITKHzkT1Y9SgA -
+    //   API KEY: AIzaSyAbOuHpUIPm08qQN3Yxlg4tjRAyluOQklc -
+    //   API KEY: AIzaSyDwOhD_EqgdyzGC3E_20GYXVI1Zq0rhIMA -
+    
+    //   API KEY: AIzaSyDGNmsrYlb33hVN_6hEZrjLQaQFo1aZ2Xw 

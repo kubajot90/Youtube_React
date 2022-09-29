@@ -8,15 +8,11 @@ const Main=()=>{
     const [searchTerm, setSearchTerm] = useState('')
 
     const searchHandler =(value)=>{
+        console.log('odpalone w main, setsearchterm');
         setSearchTerm(value)
     }
 
     return(
-        // <Fragment>
-        //     <Navigation searchHandler={searchHandler}/>
-        //     <VideosSection searchHandler={searchTerm}/>
-        // </Fragment>
-
         <Fragment>
             <Navigation searchHandler={searchHandler}/>
             

@@ -8,15 +8,12 @@ const Navigation=(props)=> {
   const navigate = useNavigate();
 
   const searchHandler=(value)=>{
+    console.log('searchhandler navigation');
     props.searchHandler(value);
   }
 
-  // const reloadPage =()=>{
-  //   console.log('reload');
-  //   window.location.reload();
-  // }
   const BackHomePage =()=> {
-    navigate('/')
+    navigate(0)
   }
 
 
