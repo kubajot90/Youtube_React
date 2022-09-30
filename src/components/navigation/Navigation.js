@@ -8,7 +8,6 @@ const Navigation=(props)=> {
   const navigate = useNavigate();
 
   const searchHandler=(value)=>{
-    console.log('searchhandler navigation');
     props.searchHandler(value);
   }
 

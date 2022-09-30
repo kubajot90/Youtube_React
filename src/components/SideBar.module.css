@@ -1,7 +1,11 @@
-.SideBarBox{
+.sideBarBox {
     position: fixed;
     width: 72px;
     height: 100%;
     background-color:white;
     z-index: 99;
+}
+
+.hide {
+    height: 56px;
 }

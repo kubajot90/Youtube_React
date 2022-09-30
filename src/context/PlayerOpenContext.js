@@ -12,7 +12,6 @@ const playerIsOpen=(value)=>{
 
   
 useEffect(()=>{
-    console.log('isPlayerOpen', isPlayerOpen);
     },[isPlayerOpen])
 
     return(

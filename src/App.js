@@ -14,7 +14,7 @@ const isPlayerOpen = useContext(PlayerOpenContext);
 
 return(
   <Fragment>
-     {!isPlayerOpen && <SideBar/>}
+      <SideBar/>
       <Main/>
   </Fragment>
 )

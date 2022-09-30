@@ -8,13 +8,13 @@ import PlayerOpenProvider from './context/PlayerOpenContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
-    <BrowserRouter>
-      <PlayerOpenProvider>
-        <App />
-      </PlayerOpenProvider>
-    </BrowserRouter>
-
+  <React.StrictMode>
+      <BrowserRouter>
+        <PlayerOpenProvider>
+          <App />
+        </PlayerOpenProvider>
+      </BrowserRouter>
+  </React.StrictMode>
 );
 {/* <React.StrictMode>
 </React.StrictMode> */}

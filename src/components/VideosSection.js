@@ -6,7 +6,7 @@ import LoadingCard from "./LoadingCard";
 import classes from './VideosSection.module.css';
 
  const VideosSection=(props)=>{
-    const apiKey= 'AIzaSyDGNmsrYlb33hVN_6hEZrjLQaQFo1aZ2Xw';
+    const apiKey= 'AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8';
     const [search, setSearch] = useState('programming')
     const defaultSearch = 'programming';
     
@@ -103,6 +103,13 @@ import classes from './VideosSection.module.css';
             const profileObj = profilesImgObj.filter((obj)=>{
                return obj.id === video.snippet.channelId
             })
+
+            props.onChangeVideoDetails(prev=>[...prev, {
+                id: video.id.videoId,
+                title: video.snippet.title,
+                profileImg: profileObj[0].imgUrl,
+                description: video.snippet.description
+            }])
            
            return  <VideoCard isSearch={isSearch}
            thumbnailUrl={video.snippet.thumbnails.high.url} 
@@ -168,12 +175,12 @@ return(
 
  export default VideosSection;
 
-    //   API KEY: AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I -
+    //   API KEY: AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I - 
     //   API KEY: AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw -
-    //   API KEY: AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8 -
-    //   API KEY: AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k -
-    //   API KEY: AIzaSyBNOVRGK5yft4Ch2RWyKOITKHzkT1Y9SgA -
-    //   API KEY: AIzaSyAbOuHpUIPm08qQN3Yxlg4tjRAyluOQklc -
-    //   API KEY: AIzaSyDwOhD_EqgdyzGC3E_20GYXVI1Zq0rhIMA -
+    //   API KEY: AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8 
+    //   API KEY: AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k 
+    //   API KEY: AIzaSyBNOVRGK5yft4Ch2RWyKOITKHzkT1Y9SgA 
+    //   API KEY: AIzaSyAbOuHpUIPm08qQN3Yxlg4tjRAyluOQklc 
+    //   API KEY: AIzaSyDwOhD_EqgdyzGC3E_20GYXVI1Zq0rhIMA 
     
     //   API KEY: AIzaSyDGNmsrYlb33hVN_6hEZrjLQaQFo1aZ2Xw 

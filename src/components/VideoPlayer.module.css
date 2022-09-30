@@ -8,6 +8,23 @@
     
 }
 
+.videoTitle {
+    font-size: 1.8rem;
+    margin-top: 15px;
+}
+
+.profileImgBox {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgb(193, 192, 192);
+    overflow: hidden;
+}
+
+.profileImg {
+    width: 100%;
+}
+
 .playerContainer{
 
 }

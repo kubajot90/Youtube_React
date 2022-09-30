@@ -17,13 +17,10 @@ const InputSearch=(props)=>{
     
     const searchHandler=(e)=>{
         e.preventDefault();
-        console.log('inputValue', inputValue);
         setSearchTerm(inputValue)
     }
     
     useEffect(()=>{
-        console.log('odpalone 1');
-        
         navigate('/');
         props.searchHandler(searchTerm)
     },[searchTerm])
