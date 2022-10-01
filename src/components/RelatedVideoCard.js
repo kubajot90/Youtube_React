@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import classes from './RelatedVideoCard.module.css';
 import DateCounter from './DateCounter';
+import {API_KEY} from '../App';
+
 
 const RelatedVideoCard =(props)=>{
+    const apiKey= useContext(API_KEY);
     const [createCards, setCreateCards] = useState('');
     const navigate = useNavigate();
 
@@ -37,20 +40,18 @@ const RelatedVideoCard =(props)=>{
     }
 
     useEffect(()=>{
-        console.log('props.relatedVideos', props.relatedVideos);
         createRelatedCardsFunc();
     },[props.relatedVideos])
      
     const moveToPlayer =(obj)=>{
         props.onFetchRelatedVideos(obj.id);
-        // createRelatedCardsFunc();
-        fetchChannelImgUrl(obj);
+        fetchChannelIDetails(obj);
         navigate(`/${obj.id}`);
     }
 
-    const fetchChannelImgUrl =(obj)=>{
+    const fetchChannelIDetails =(obj)=>{
         
-                fetch(`https://youtube.googleapis.com/youtube/v3/channels?key=AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8&part=snippet&part=statistics&id=${obj.channelId}`)
+                fetch(`https://youtube.googleapis.com/youtube/v3/channels?key=${apiKey}&part=snippet&part=statistics&id=${obj.channelId}`)
             .then((response)=>response.json())
             .then((responseData)=>{
                 console.log(' related video responseData' , responseData);
@@ -64,6 +65,7 @@ const RelatedVideoCard =(props)=>{
                     profileImg:imgUrl,
                     ChannelDescription: responseData.items[0].snippet.description,
                     description: obj.description,
+                    subscriberCount: responseData.items[0].statistics.subscriberCount,
                 }])
                       
                 })

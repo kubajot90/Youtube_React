@@ -13,6 +13,7 @@ const Main=()=>{
     const changeVideoDetails =(obj)=>{
         setVideosDetails(obj)
     }
+    
     useEffect(()=>{
         console.log('videosDetails', videosDetails);
     },[videosDetails])

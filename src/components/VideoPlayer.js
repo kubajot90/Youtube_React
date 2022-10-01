@@ -1,21 +1,23 @@
-import {useEffect, useState, } from 'react';
+import {useEffect, useState, useContext } from 'react';
 import {useParams} from 'react-router-dom';
 import RelatedVideoCard from './RelatedVideoCard';
 import CommentCard from './CommentCard';
-import VideoCard from './VideoCard';
+import SubscriberCounter from './SubscriberCounter';
+import Linkify from 'react-linkify';
+import {API_KEY} from '../App';
 
 
 import classes from './VideoPlayer.module.css';
-import { propTypes } from 'react-bootstrap/esm/Image';
 
 
 const VideoPlayer =(props)=>{
+    const apiKey= useContext(API_KEY);
     const id = useParams();
     const [relatedVideos, setRelatedVideos] = useState([]);
     const [currentVideoDetails, setCurrentVideoDetails] = useState({});
 
     const fetchVideos = ()=>{
-        fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8&textFormat=plainText&part=snippet&videoId=${id.id}`)
+        fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=${apiKey}&textFormat=plainText&part=snippet&videoId=${id.id}`)
         .then((response)=>response.json())
         .then((responseData)=>{
         //    console.log(responseData);
@@ -24,7 +26,7 @@ const VideoPlayer =(props)=>{
 
         const fetchRelatedVideos = (id)=>{
             window.scrollTo(0, 0, 'auto');
-            fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${id}&type=video&key=AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8&maxResults=8`)
+            fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${id}&type=video&key=${apiKey}&maxResults=8`)
             .then((response)=>response.json())
             .then((responseData)=>{
                 console.log(responseData.items)
@@ -33,8 +35,6 @@ const VideoPlayer =(props)=>{
             };
     
         useEffect(()=>{
-            // fetchVideos();
-            // console.log(id);
             fetchRelatedVideos(id.id);
         }, [])
     
@@ -42,29 +42,41 @@ const VideoPlayer =(props)=>{
 
         useEffect(
             function findCurrentVideoId(){
-                console.log('props.videosDetails', props.videosDetails);
-              const video = props.videosDetails.filter((video)=>{
+                if(props.videosDetails){
+                   const video = props.videosDetails.filter((video)=>{
                    return video.id === id.id
                 });
-                setCurrentVideoDetails(video[0])
+                setCurrentVideoDetails(video[0]) 
+                }
+              
         },[props.videosDetails])
-
-        useEffect(
-            ()=>{
-                console.log('============================currentVideoDetails', currentVideoDetails);
-        },[currentVideoDetails])
 
     return(
         <div className={`${classes.VideoPlayer} d-flex justify-content-lg-center flex-column flex-lg-row align-items-center align-items-lg-start col-12 col-lg-8`}>
             <div className={classes.playerContainer}>
                 <div className={classes.playerSection}>
                     <iframe width="560px" height="315px" src={`https://www.youtube.com/embed/${id.id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                    <div className={classes.videoDescription}>
+                    <div className={classes.videoDetailsContainer}>
                         <div className={classes.videoTitle}>
-                        {currentVideoDetails.title}
+                            {currentVideoDetails.title}
+                        </div >
+                        <div className={classes.channelInfoBox}>
+                            <div className={classes.profileImgBox} >
+                                <img className={classes.profileImg} src={`${currentVideoDetails.profileImg}`} alt="profile avatar"></img>
+                            </div>
+                            <div className={classes.channelDetailsBox}>
+                                <div className={classes.channelTitle}>
+                                    {currentVideoDetails.channelTitle}
+                                </div >
+                                <div className={classes.subscriberCount}>
+                                    <SubscriberCounter subscriberAmount={currentVideoDetails.subscriberCount}/>
+                                </div >
+                            </div>
                         </div>
-                        <div className={classes.profileImgBox} >
-                            <img className={classes.profileImg} src={`${currentVideoDetails.profileImg}`} alt="profile avatar"></img>
+                        <div className={classes.videoDescriptionBox}>
+                        <Linkify>
+                            {currentVideoDetails.description}
+                        </Linkify>
                         </div>
 
                     </div>

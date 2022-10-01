@@ -1,12 +1,13 @@
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState, useRef, useContext} from "react";
 import VideoCard from "./VideoCard";
 import LoadingCard from "./LoadingCard";
-// import { useNavigate } from "react-router-dom";
+import {API_KEY} from '../App';
 
 import classes from './VideosSection.module.css';
 
  const VideosSection=(props)=>{
-    const apiKey= 'AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8';
+    const apiKey= useContext(API_KEY);
+    // const apiKey= 'AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k';
     const [search, setSearch] = useState('programming')
     const defaultSearch = 'programming';
     
@@ -40,6 +41,8 @@ import classes from './VideosSection.module.css';
 
    
     const fetchVideos = ()=>{
+        clearVideosDetails();
+
         fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount.current}`)
         .then((response)=> response.json())
         .then((responseData)=>{
@@ -80,10 +83,14 @@ import classes from './VideosSection.module.css';
             fetch(`https://youtube.googleapis.com/youtube/v3/channels?key=${apiKey}&part=snippet&part=statistics&id=${id}`)
         .then((response)=>response.json())
         .then((responseData)=>{
+            console.log('-==-=-=--=-===-=-==-=-responseData',responseData);
             const obj = {
-                    id: id, 
+                    channelId: id, 
                     imgUrl: responseData.items[0].snippet.thumbnails.medium.url,
                     videoViews : responseData.items[0].statistics.viewCount,
+                    channelTitle: responseData.items[0].snippet.title,
+                    ChannelDescription: responseData.items[0].snippet.description,
+                    subscriberCount: responseData.items[0].statistics.subscriberCount,
                     };
                    profilesArr.push(obj);
             })
@@ -101,14 +108,18 @@ import classes from './VideosSection.module.css';
     const createCardsFunc=()=>{
         const createNewCards = videos.map((video)=>{
             const profileObj = profilesImgObj.filter((obj)=>{
-               return obj.id === video.snippet.channelId
+               return obj.channelId === video.snippet.channelId
             })
 
             props.onChangeVideoDetails(prev=>[...prev, {
                 id: video.id.videoId,
                 title: video.snippet.title,
                 profileImg: profileObj[0].imgUrl,
-                description: video.snippet.description
+                description: video.snippet.description,
+                channelId: profileObj[0].channelId,
+                channelTitle: profileObj[0].channelTitle,
+                ChannelDescription: profileObj[0].ChannelDescription,
+                subscriberCount: profileObj[0].subscriberCount,
             }])
            
            return  <VideoCard isSearch={isSearch}
@@ -127,6 +138,10 @@ import classes from './VideosSection.module.css';
         )
         setCreateCards(createNewCards)
         canLoadMore.current = true;
+    }
+
+    const clearVideosDetails =()=>{
+        props.onChangeVideoDetails(prev=>[])
     }
   
     const fetchMoreVideos =()=> {
@@ -177,7 +192,7 @@ return(
 
     //   API KEY: AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I - 
     //   API KEY: AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw -
-    //   API KEY: AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8 
+    //   API KEY: AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8 -
     //   API KEY: AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k 
     //   API KEY: AIzaSyBNOVRGK5yft4Ch2RWyKOITKHzkT1Y9SgA 
     //   API KEY: AIzaSyAbOuHpUIPm08qQN3Yxlg4tjRAyluOQklc 
