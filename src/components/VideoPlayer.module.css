@@ -6,6 +6,25 @@
     width: 100%;
     background-color:rgb(249, 249, 249);
     
+    display: grid;
+    justify-content: center;
+    grid-template-columns: min-content min-content;
+    grid-template-areas: 
+    "video relatedVideo"
+    "comments relatedVideo";
+}
+
+.playerContainer{
+ grid-area: video;
+}
+
+.relatedVideosSection {
+    grid-area: relatedVideo;
+}
+
+.commentsSection {
+    grid-area: comments;
+
 }
 
 .videoTitle {
@@ -15,8 +34,11 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.videoDetailsContainer {
 
+.videoDetailsContainer {
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .channelInfoBox {
@@ -57,11 +79,9 @@
     display: flex;
     flex-direction: column;
     max-width: 576px;
-    /* height: 86px; */
     margin-left: 63px;
     font-size: 1.4rem;
     white-space: pre-wrap;
-    /* overflow: hidden; */
 }
 
 .videoDescriptionText {
@@ -86,6 +106,7 @@
 .buttonActive {
     height: auto;
 }
+
 .buttonActive::after {
     content: 'POKAŻ MNIEJ';
     position: absolute;
@@ -97,14 +118,15 @@
     background-color:rgb(249, 249, 249);
 
 }
-
-.playerContainer{
-
-}
 .playerSection {
-   
+
 }
 
-.relatedVideosSection {
-    
+@media (max-width: 999px){
+    .VideoPlayer {
+        grid-template-areas: 
+        "video"
+        "relatedVideo"
+        "comments" ;
+    }
 }

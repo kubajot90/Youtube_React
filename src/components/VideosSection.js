@@ -83,7 +83,6 @@ import classes from './VideosSection.module.css';
             fetch(`https://youtube.googleapis.com/youtube/v3/channels?key=${apiKey}&part=snippet&part=statistics&id=${id}`)
         .then((response)=>response.json())
         .then((responseData)=>{
-            console.log('-==-=-=--=-===-=-==-=-responseData',responseData);
             const obj = {
                     channelId: id, 
                     imgUrl: responseData.items[0].snippet.thumbnails.medium.url,

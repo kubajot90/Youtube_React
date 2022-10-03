@@ -14,10 +14,6 @@ const Main=()=>{
         setVideosDetails(obj)
     }
     
-    useEffect(()=>{
-        console.log('videosDetails', videosDetails);
-    },[videosDetails])
-
     const searchHandler =(value)=>{
         setSearchTerm(value)
     }
