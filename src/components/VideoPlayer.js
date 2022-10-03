@@ -15,6 +15,7 @@ const VideoPlayer =(props)=>{
     const id = useParams();
     const [relatedVideos, setRelatedVideos] = useState([]);
     const [currentVideoDetails, setCurrentVideoDetails] = useState({});
+    const [isBtnActive, setIsBtnActive] = useState(false);
 
     const fetchVideos = ()=>{
         fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=${apiKey}&textFormat=plainText&part=snippet&videoId=${id.id}`)
@@ -49,7 +50,11 @@ const VideoPlayer =(props)=>{
                 setCurrentVideoDetails(video[0]) 
                 }
               
-        },[props.videosDetails])
+        },[props.videosDetails]);
+
+        const toggleClass =()=>{
+            setIsBtnActive(prev=> !prev)
+        }
 
     return(
         <div className={`${classes.VideoPlayer} d-flex justify-content-lg-center flex-column flex-lg-row align-items-center align-items-lg-start col-12 col-lg-8`}>
@@ -74,9 +79,13 @@ const VideoPlayer =(props)=>{
                             </div>
                         </div>
                         <div className={classes.videoDescriptionBox}>
-                        <Linkify>
-                            {currentVideoDetails.description}
-                        </Linkify>
+                            <div className={`${classes.videoDescriptionText} ${isBtnActive && classes.videoDescriptionTextActive}`}>
+                                <Linkify>
+                                    {currentVideoDetails.description}
+                                </Linkify>
+                            </div>
+                        
+                        <button onClick={toggleClass} className={`${classes.descriptionButton} ${isBtnActive && classes.buttonActive}`}> POKAŻ WIĘCEJ</button>
                         </div>
 
                     </div>

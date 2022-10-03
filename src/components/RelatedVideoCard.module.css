@@ -23,7 +23,7 @@
 .videoTitle {
     font-size: 1.3rem;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: 500;
     overflow-wrap: break-word;
 }
 
