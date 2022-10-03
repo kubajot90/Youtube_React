@@ -61,7 +61,10 @@ const VideoPlayer =(props)=>{
         <div className={`${classes.VideoPlayer} `}>
             <div className={classes.playerContainer}>
                 <div className={classes.playerSection}>
-                    <iframe width="560px" height="315px" src={`https://www.youtube.com/embed/${id.id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    {/* <iframe width="560px" height="315px" src={`https://www.youtube.com/embed/${id.id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
+                    <div className={classes.frameBox}>
+                    <iframe className={classes.frame} src={`https://www.youtube.com/embed/${id.id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    </div>
                     <div className={classes.videoDetailsContainer}>
                         <div className={classes.videoTitle}>
                             {currentVideoDetails.title}

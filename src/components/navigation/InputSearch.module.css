@@ -6,6 +6,18 @@
     width: 100vw;
     top: auto;
     left: 0;
+    z-index: 999;
+}
+
+.arrowBack {
+    all: unset;
+    position: absolute;
+    top: 9px;
+    left: 14px;
+}
+
+.arrowIcon {
+    font-size: 2.2rem;
 }
 
 .inputBox {
@@ -26,15 +38,13 @@
 .inputSearch {
     padding-left: 5px;
     width: 100%;
+    background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-top-left-radius: 2px;
     border-top-right-radius: 0;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 0;
     font-size: 1.6rem;
-    
-   
-    
 }
 
 .inputSearch:focus {
@@ -90,7 +100,7 @@
 
 .buttonSearch:hover {
     background-color: rgb(237, 237, 237);
-    box-shadow:0 2px 1px rgb(237, 237, 237);;
+    box-shadow:0 2px 1px rgb(237, 237, 237);
 }
 
 .searchIcon {
@@ -110,4 +120,22 @@
     width: 2.7rem;
    color: rgb(99, 99, 99);
 
+}
+
+@media (max-width: 640px){
+    .buttonSearchResponsive {
+        all: unset;
+    }
+    .buttonSearchResponsive:hover {
+        all: unset;
+        cursor: pointer;
+    }
+
+    .inputSearchResponsive{
+        visibility: hidden;
+    }
+
+    .inputBox {
+        width: 80%;
+    }
 }

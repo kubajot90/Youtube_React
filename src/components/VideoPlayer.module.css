@@ -8,7 +8,7 @@
     
     display: grid;
     justify-content: center;
-    grid-template-columns: min-content min-content;
+    grid-template-columns: minmax(min-content, 50%) min-content;
     grid-template-areas: 
     "video relatedVideo"
     "comments relatedVideo";
@@ -16,6 +16,7 @@
 
 .playerContainer{
  grid-area: video;
+ 
 }
 
 .relatedVideosSection {
@@ -25,6 +26,22 @@
 .commentsSection {
     grid-area: comments;
 
+}
+
+.frameBox {
+    position: relative; 
+    padding-bottom: 56.25%; 
+    padding-top: 30px; 
+    height: 0; 
+    overflow: hidden;
+}
+
+.frame {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
 }
 
 .videoTitle {
@@ -85,7 +102,7 @@
 }
 
 .videoDescriptionText {
-    height: 86px;
+    max-height: 86px;
     overflow: hidden;
 }
 
@@ -118,15 +135,22 @@
     background-color:rgb(249, 249, 249);
 
 }
-.playerSection {
 
-}
+
+
 
 @media (max-width: 999px){
     .VideoPlayer {
+        grid-template-columns: 640px;
         grid-template-areas: 
         "video"
         "relatedVideo"
         "comments" ;
+    }
+}
+@media (max-width: 640px){
+    .VideoPlayer {
+        grid-template-columns: 427px;
+       
     }
 }
