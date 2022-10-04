@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import RelatedVideoCard from './RelatedVideoCard';
 import CommentCard from './CommentCard';
 import SubscriberCounter from './SubscriberCounter';
+import ButtonShowMore from './ButtonShowMore';
 import Linkify from 'react-linkify';
 import {API_KEY} from '../App';
 
@@ -19,7 +20,7 @@ const VideoPlayer =(props)=>{
     const [isBtnActive, setIsBtnActive] = useState(false);
 
     const fetchComments = ()=>{
-        fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=${apiKey}&textFormat=plainText&part=snippet&videoId=${id.id}`)
+        fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=${apiKey}&textFormat=plainText&part=snippet&videoId=${id.id}&maxResults=7`)
         .then((response)=>response.json())
         .then((responseData)=>{
             setComments(responseData)
@@ -54,14 +55,19 @@ const VideoPlayer =(props)=>{
         },[props.videosDetails]);
 
         const toggleClass =()=>{
+            console.log('dziala');
             setIsBtnActive(prev=> !prev)
         }
+
+        useEffect(
+         ()=>{
+            console.log('isBtnActive',isBtnActive);
+         },[isBtnActive]);
 
     return(
         <div className={`${classes.VideoPlayer} `}>
             <div className={classes.playerContainer}>
                 <div className={classes.playerSection}>
-                    {/* <iframe width="560px" height="315px" src={`https://www.youtube.com/embed/${id.id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
                     <div className={classes.frameBox}>
                     <iframe className={classes.frame} src={`https://www.youtube.com/embed/${id.id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
@@ -88,7 +94,10 @@ const VideoPlayer =(props)=>{
                                     {currentVideoDetails.description}
                                 </Linkify>
                             </div>
-                        <button onClick={toggleClass} className={`${classes.descriptionButton} ${isBtnActive && classes.buttonActive}`}> POKAŻ WIĘCEJ</button>
+                        {/* <button onClick={toggleClass} className={`${classes.descriptionButton} ${isBtnActive && classes.buttonActive}`}> POKAŻ WIĘCEJ</button> */}
+                        <ButtonShowMore callFunc={toggleClass}/>
+
+                        {/* <button onClick={toggleClass} className={`${classes.descriptionButton} ${isBtnActive && classes.buttonActive}`}> POKAŻ WIĘCEJ</button> */}
                         </div>
 
                     </div>

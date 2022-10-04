@@ -8,7 +8,7 @@ import './App.css';
 export const API_KEY = React.createContext();
 
 function App() {
-  const key = 'AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw'
+  const key = 'AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I'
   
   return(
     <Fragment>
@@ -25,7 +25,7 @@ function App() {
 export default App;
 
 
-    //   API KEY: AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I - 
+    //   API KEY: AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I 
     //   API KEY: AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw 
     //   API KEY: AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8 
     //   API KEY: AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k 

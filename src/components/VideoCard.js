@@ -16,29 +16,46 @@ const VideoCard=(props)=>{
     navigate(`${props.id}`)
 }
 
-  const description = <div className={`${classes.descriptionWide}`}>{props.description}</div>;
+  const cardBodyWide = 
+  <div className={classes.cardBodyWide}>
+    <div className={classes.cardTitleWide}>
+      {props.title}
+    </div>
+    <div className={classes.cardCountersBoxWide}>
+      <ViewCounter viewCount={props.viewCount}/>
+      <DateCounter date={props.date}/>
+    </div>
+    <div className={classes.channelLogoBoxWide}>
+      <div className={classes.profileImgBoxWide}><img className={classes.profileImgWide} src={props.profileImgUrlWide} alt='Profile photos'></img>
+      </div>
+      <span className={classes.channelTitleWide}>{props.channelTitle}</span>
+    </div>
+    <div className={classes.cardDescriptionWide}>{props.description}</div>
+  </div>
+
+  const cardBody =
+  <div className={classes.cardDescription}>
+  <div className={classes.profileImgBox}>
+    <img className={classes.profileImg} src={props.profileImgUrl} alt='Profile photos'></img>
+  </div>
+  <div className={classes.descriptionBox}>
+      <div className={classes.videoTitleBox}>
+          <span className={classes.videoTitle}>{props.title}</span>
+      </div>
+      <span className={classes.channelTitle}>{props.channelTitle}</span>
+      <div className={classes.subtitlesBox}>
+        <ViewCounter viewCount={props.viewCount}/>
+        <DateCounter date={props.date}/>
+      </div> 
+  </div>
+</div>
   
     return(  
-       <Card onClick={()=>{moveToPlayer(); PlayerOpenUpdateFunc(true)}} style={{ minWidth: '277px', background:'transparent' }} className={`${props.isSearch ? 'col-12 flex-row' : 'col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-1 '} m-3 flex-grow-1 `}>
-          <Card.Img variant="top" src={props.thumbnailUrl} className={`${classes.headerImg} ${props.isSearch && classes.headerImgWide}`}/>
+       <Card onClick={()=>{moveToPlayer(); PlayerOpenUpdateFunc(true)}} style={{ minWidth: '277px', backgroundColor:'transparent' }} className={`${props.isSearch ? 'col-12 flex-row' : 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1 '} m-3 flex-grow-1 `}>
+          <div className={classes.cardImageBox} style={{backgroundImage: `url('${props.thumbnailUrl}')`}}>
+          </div>
           <Card.Body>
-              <div className={`${classes.cardDescription} ${props.isSearch && classes.cardDescriptionWide}`}>
-                  <div className={`${classes.profileImgBox} ${props.isSearch && classes.profileImgBoxWide}`}>
-                    <img className={classes.profileImg} src={props.profileImgUrl} alt='Profile photos'></img>
-                  </div>
-                  <div className={classes.descriptionBox}>
-                      <div className={ `${classes.videoTitleBox} ${props.isSearch && classes.videoTitleBoxWide}`}>
-                          <span className={`${classes.videoTitle} ${props.isSearch && classes.videoTitleWide}`}>{props.title}</span>
-                      </div>
-                      <span className={`${classes.channelTitle} ${props.isSearch && classes.channelTitleWide}`}>{props.channelTitle}</span>
-                      <div className={`${classes.subtitlesBox} ${props.isSearch && classes.subtitlesBoxWide}`}>
-                        <ViewCounter viewCount={props.viewCount}/>
-                        <DateCounter date={props.date}/>
-                      </div> 
-                  </div>
-                  {props.isSearch && description}
-                  {/* <div className={`${classes.descriptionWide}`}>{props.description}</div> */}
-              </div>
+            {props.isSearch ? cardBodyWide : cardBody}
             </Card.Body>
           </Card>
        

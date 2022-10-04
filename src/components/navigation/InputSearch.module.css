@@ -6,14 +6,19 @@
     width: 100vw;
     top: auto;
     left: 0;
-    z-index: 999;
+    /* z-index: 999; */
+}
+
+.inputFormActive {
+    background-color: #fff;    
 }
 
 .arrowBack {
     all: unset;
+    display: none;
     position: absolute;
     top: 9px;
-    left: 14px;
+    left: 3%;
 }
 
 .arrowIcon {
@@ -24,6 +29,8 @@
     display: flex;
     position: relative;
     width: 40%;
+    background-color: rgb(255, 255, 255);
+    z-index: 999;
 }
 
 ::placeholder {
@@ -45,6 +52,7 @@
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 0;
     font-size: 1.6rem;
+    z-index: 1000;
 }
 
 .inputSearch:focus {
@@ -74,6 +82,7 @@
     border-bottom-right-radius: 0;
     box-shadow: inset 0 10px 2px -9px rgba(115, 115, 115, 0.3),
     inset 10px 0 2px -9px rgba(115, 115, 115, 0.3);
+    background-color: #fff;
 }
 
 .searchIconFocus {
@@ -131,11 +140,19 @@
         cursor: pointer;
     }
 
-    .inputSearchResponsive{
+    .inputSearchResponsive {
+        visibility: hidden;
+    }
+
+    .iconBoxResponsive {
         visibility: hidden;
     }
 
     .inputBox {
-        width: 80%;
+        width: 70%;
+        left: 20px;
+    }
+    .arrowBack {
+        display: block;
     }
 }

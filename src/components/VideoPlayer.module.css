@@ -95,6 +95,7 @@
 .videoDescriptionBox {
     display: flex;
     flex-direction: column;
+    /* flex-grow: 1; */
     max-width: 576px;
     margin-left: 63px;
     font-size: 1.4rem;
@@ -107,10 +108,11 @@
 }
 
 .videoDescriptionTextActive {
+    max-height: none;
     height: auto;
 }
 
-.descriptionButton {
+/* .descriptionButton {
     all: unset;
     position: relative;
     margin-top: 23px;
@@ -134,7 +136,7 @@
     left: 0;
     background-color:rgb(249, 249, 249);
 
-}
+} */
 
 
 

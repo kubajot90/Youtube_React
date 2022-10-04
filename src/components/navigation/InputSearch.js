@@ -19,14 +19,21 @@ const InputSearch=(props)=>{
     
     const searchHandler=(e)=>{
         e.preventDefault();
-        if(!isSearchBtnClick){
+        if(!isSearchBtnClick && window.innerWidth < 640 ){
             setIsSearchBtnClick(true);
+            inputRef.current.focus();
         }else{
             setSearchTerm(inputValue);
             setIsSearchBtnClick(false);
+            props.showLogo(true)
         }
         
     }
+    
+    useEffect(()=>{
+        isSearchBtnClick && inputRef.current.focus();
+        isSearchBtnClick && props.showLogo(false)
+    },[isSearchBtnClick])
     
     useEffect(()=>{
         navigate('/');
@@ -39,23 +46,30 @@ const InputSearch=(props)=>{
         inputRef.current.focus();
     }
 
+    const showLogoAfterBlur =()=>{
+        if(window.innerWidth > 640){
+            props.showLogo(true);
+            setIsSearchBtnClick(false);
+        }
+    }
+
     const iconClear =  <div onClick={clearInput} className={classes.iconClear}>
     <IoCloseOutline className={classes.inputXMark}/></div>;
 
-    const arrowBackButton =  <button onClick={()=>setIsSearchBtnClick(false)} className={classes.arrowBack}>
+    const arrowBackButton =  <button onClick={()=>{setIsSearchBtnClick(false); props.showLogo(true)}} className={classes.arrowBack}>
     <HiOutlineArrowLeft className={classes.arrowIcon}/>
 </button>
 
 
     return(
-        <form onSubmit={searchHandler} className={classes.inputForm}>
+        <form onSubmit={searchHandler} className={`${classes.inputForm} ${ isSearchBtnClick && classes.inputFormActive}`}>
            {isSearchBtnClick && arrowBackButton}
             <div className={classes.inputBox}>
-                <input ref={inputRef} placeholder="Szukaj" onChange={inputValueHandler} className={`${classes.inputSearch} ${!isSearchBtnClick && classes.inputSearchResponsive}`}/>
-                <div className={classes.iconBox}>
+                <input ref={inputRef} placeholder="Szukaj" onBlur={showLogoAfterBlur}  onChange={inputValueHandler} className={`${classes.inputSearch} ${!isSearchBtnClick && classes.inputSearchResponsive}`}/>
+                <div className={`${classes.iconBox} ${!isSearchBtnClick && classes.iconBoxResponsive}`}>
                     <IoSearchOutline className={classes.searchIconFocus}/>
                 </div>
-                    {inputValue && iconClear}
+                    {inputValue && isSearchBtnClick && iconClear}
                     
                 <button type='submit' className={`${classes.buttonSearch} ${!isSearchBtnClick && classes.buttonSearchResponsive}`}>
                     <IoSearchOutline className={classes.searchIcon}/>

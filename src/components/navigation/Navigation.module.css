@@ -10,6 +10,6 @@
     z-index: 99;
 }
 .logoImage {
-    z-index: inherit;
+    z-index: 99;
     cursor: pointer;
 }

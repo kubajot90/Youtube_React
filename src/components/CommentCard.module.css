@@ -1,0 +1,57 @@
+.commentCard {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.authorImgBox {
+    flex-shrink: 0;
+    margin-right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.authorImg {
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.author {
+    margin-right: 5px;
+    white-space: nowrap;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.content {
+    margin-bottom: 8px;
+    max-height: 80px;
+    overflow: hidden;
+    font-size: 1.4rem;
+    font-weight: 400;
+
+}
+
+.likesBox {
+
+}
+
+.like, .dislike {
+    font-size: 1.4rem;
+    margin-right: 13px;
+}
+
+.likesCounter {
+    margin-right: 13px;
+}
+
+.dislike {
+
+}
+

@@ -9,3 +9,8 @@
 .hide {
     height: 56px;
 }
+@media (max-width: 640px){
+    .sideBarBox {
+        height: 56px;
+    }
+}

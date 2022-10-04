@@ -5,10 +5,22 @@
     margin-bottom: 30px;
 }
 
-.cardDescriptionWide {
+.cardImageBox {
+    width: auto;
+    height: 50vw;
+    background-size:cover;
+    background-position: center;
+}
+
+.cardImage {
+    /* width: 100%; */
+}
+
+/* .cardDescriptionWide {
     flex-direction: column;
     padding-left: 15px;
-}
+    background-color: red;
+} */
 
 .profileImgBox {
     width: 36px;
@@ -18,9 +30,9 @@
     overflow: hidden;
 }
 
-.profileImgBoxWide {
+/* .profileImgBoxWide {
     order: 3;
-}
+} */
 
 .profileImg {
     width: 100%;
@@ -29,15 +41,14 @@
 .headerImg {
     width: 100%;
     height: 155px;
-    /* height: 50%; */
     object-fit: cover;
 }
 
-.headerImgWide {
+/* .headerImgWide {
     width: 360px;
     height: 200px;
     object-fit: cover;
-}
+} */
 
 
 .descriptionBox {
@@ -52,20 +63,23 @@ flex-basis: 82%;
     overflow: hidden;
 }
 
-.videoTitleBoxWide {
+/* .videoTitleBoxWide {
     order: -1;
-}
+    height: 50px;
+    margin-bottom: 0;
+    background-color: yellow;
+} */
 
 .videoTitle {
     font-size: 1.4rem;
     font-weight: 500;
 }
 
-.videoTitleWide {
+/* .videoTitleWide {
     font-size: 1.8rem;
     font-weight: 400;
     
-}
+} */
 
  .channelTitle {
     font-size: 1.2rem;
@@ -73,23 +87,122 @@ flex-basis: 82%;
 }
 
 
-.channelTitleWide {
+/* .channelTitleWide {
     position: absolute;
-    top: 81px;
+    top: 87px;
     margin-left: 44px;
-}
+} */
 
 .subtitlesBox {
     display: flex;
 }
 
-.subtitlesBoxWide {
+/* .subtitlesBoxWide {
     order:-1;
-}
+} */
 
-.descriptionWide {
+/* .descriptionWide {
     position: absolute;
     top: 120px;
     font-size: 1.2rem;
     color: rgb(110, 110, 110);
+} */
+
+/* @media (max-width: 640px){
+    .descriptionWide {
+        top: calc(100% - 36px);
+      height: 36px;
+      overflow: hidden;
+    }
+    .videoTitleBoxWide {
+        
+       
+        
+    }
+} */
+
+.headerImgWide {
+    width: 360px;
+    height: 200px;
+    object-fit: cover;
+} 
+
+.cardBodyWide {
+    margin-left: 18px;
+}
+
+.cardTitleWide {
+    font-size: 1.8rem;
+    font-weight: 400;
+    max-height: 52px;
+    overflow: hidden;
+}
+
+.cardCountersBoxWide {
+    display: flex;
+}
+
+.channelLogoBoxWide {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+}
+
+.profileImgBoxWide {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgb(193, 192, 192);
+    overflow: hidden;
+}
+
+.profileImgWide {
+    width: 100%;
+}
+
+.channelTitleWide {
+    margin-left: 8px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: rgb(110, 110, 110);
+}
+
+.cardDescriptionWide {
+    font-size: 1.2rem;
+    color: rgb(110, 110, 110);
+}
+
+@media (max-width: 500px){
+    .cardCountersBoxWide {
+       flex-direction: column;
+    }
+}
+
+
+/* @media (min-width: 576px){
+    .cardImageBox {
+        height: 50vw;
+    }
+} */
+
+@media (min-width: 768px){
+    .cardImageBox {
+        height: 23vw;
+    }
+}
+
+@media (min-width: 992px){
+    .cardImageBox {
+        height: 16vw;
+    }
+}
+@media (min-width: 1200px){
+    .cardImageBox {
+        height: 12vw;
+    }
+}
+@media (min-width: 1570px){
+    .cardImageBox {
+        height: 9.7vw;
+    }
 }
