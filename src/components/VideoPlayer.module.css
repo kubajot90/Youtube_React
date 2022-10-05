@@ -95,7 +95,6 @@
 .videoDescriptionBox {
     display: flex;
     flex-direction: column;
-    /* flex-grow: 1; */
     max-width: 576px;
     margin-left: 63px;
     font-size: 1.4rem;

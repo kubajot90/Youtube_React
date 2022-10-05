@@ -1,4 +1,4 @@
-import {useEffect, useState, useContext } from 'react';
+import {useEffect, useState, useContext, useRef } from 'react';
 import {useParams} from 'react-router-dom';
 import RelatedVideoCard from './RelatedVideoCard';
 import CommentCard from './CommentCard';
@@ -18,9 +18,14 @@ const VideoPlayer =(props)=>{
     const [comments, setComments] = useState([]);
     const [currentVideoDetails, setCurrentVideoDetails] = useState({});
     const [isBtnActive, setIsBtnActive] = useState(false);
+    const [showButtonMore, setShowButtonMore] = useState(false);
+    const descriptionRef = useRef();
+    const commentsAmmount = useRef(3);
+    const relatedVidAmmount = useRef(10);
+    const allowFetchMore = useRef(true);
 
     const fetchComments = ()=>{
-        fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=${apiKey}&textFormat=plainText&part=snippet&videoId=${id.id}&maxResults=7`)
+        fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=${apiKey}&textFormat=plainText&part=snippet&videoId=${id.id}&maxResults=${commentsAmmount.current}`)
         .then((response)=>response.json())
         .then((responseData)=>{
             setComments(responseData)
@@ -28,8 +33,8 @@ const VideoPlayer =(props)=>{
         };
 
         const fetchRelatedVideos = (id)=>{
-            window.scrollTo(0, 0, 'auto');
-            fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${id}&type=video&key=${apiKey}&maxResults=8`)
+            // window.scrollTo(0, 0, 'auto');
+            fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${id}&type=video&key=${apiKey}&maxResults=${relatedVidAmmount.current}`)
             .then((response)=>response.json())
             .then((responseData)=>{
                setRelatedVideos(responseData.items)
@@ -55,14 +60,47 @@ const VideoPlayer =(props)=>{
         },[props.videosDetails]);
 
         const toggleClass =()=>{
-            console.log('dziala');
             setIsBtnActive(prev=> !prev)
         }
 
         useEffect(
          ()=>{
-            console.log('isBtnActive',isBtnActive);
-         },[isBtnActive]);
+            setIsBtnActive(false);
+            descriptionRef.current.clientHeight > 83 && setShowButtonMore(true);
+         },[currentVideoDetails]);
+
+        const fetchMoreRelatedVid =()=>{
+            relatedVidAmmount.current = relatedVidAmmount.current +3;
+            fetchRelatedVideos(id.id);
+            }
+
+        const fetchMoreComments =()=>{
+            commentsAmmount.current = commentsAmmount.current + 4;
+            fetchComments();
+            }
+                
+
+         const setScroll = () => {
+            const heightPercentage = `${(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100}`
+         
+         if(heightPercentage > 99 && allowFetchMore.current){
+             console.log('SCROLL EVENT DZIALA');
+             fetchMoreComments();
+             fetchMoreRelatedVid();
+             allowFetchMore.current = false;
+         }
+         
+         if(heightPercentage < 80 && !allowFetchMore.current){
+             allowFetchMore.current = true;
+         }
+     }
+       
+         useEffect(() => {
+           window.addEventListener("scroll", setScroll);
+           return () => {
+             window.removeEventListener("scroll", setScroll);
+           };
+         }, []);
 
     return(
         <div className={`${classes.VideoPlayer} `}>
@@ -89,15 +127,12 @@ const VideoPlayer =(props)=>{
                             </div>
                         </div>
                         <div className={classes.videoDescriptionBox}>
-                            <div className={`${classes.videoDescriptionText} ${isBtnActive && classes.videoDescriptionTextActive}`}>
+                            <div ref={descriptionRef} className={`${classes.videoDescriptionText} ${isBtnActive && classes.videoDescriptionTextActive}`}>
                                 <Linkify>
                                     {currentVideoDetails.description}
                                 </Linkify>
                             </div>
-                        {/* <button onClick={toggleClass} className={`${classes.descriptionButton} ${isBtnActive && classes.buttonActive}`}> POKAŻ WIĘCEJ</button> */}
-                        <ButtonShowMore callFunc={toggleClass}/>
-
-                        {/* <button onClick={toggleClass} className={`${classes.descriptionButton} ${isBtnActive && classes.buttonActive}`}> POKAŻ WIĘCEJ</button> */}
+                         { showButtonMore && <ButtonShowMore isBtnActive={isBtnActive} callFunc={toggleClass}/>}
                         </div>
 
                     </div>

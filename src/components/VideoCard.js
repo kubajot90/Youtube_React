@@ -26,7 +26,7 @@ const VideoCard=(props)=>{
       <DateCounter date={props.date}/>
     </div>
     <div className={classes.channelLogoBoxWide}>
-      <div className={classes.profileImgBoxWide}><img className={classes.profileImgWide} src={props.profileImgUrlWide} alt='Profile photos'></img>
+      <div className={classes.profileImgBoxWide}><img className={classes.profileImgWide} src={props.profileImgUrl} alt='Profile photos'></img>
       </div>
       <span className={classes.channelTitleWide}>{props.channelTitle}</span>
     </div>
@@ -52,8 +52,12 @@ const VideoCard=(props)=>{
   
     return(  
        <Card onClick={()=>{moveToPlayer(); PlayerOpenUpdateFunc(true)}} style={{ minWidth: '277px', backgroundColor:'transparent' }} className={`${props.isSearch ? 'col-12 flex-row' : 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1 '} m-3 flex-grow-1 `}>
+
+        {props.isSearch ?
+         <Card.Img variant="top" src={props.thumbnailUrl} className={classes.headerImgWide}/> :
           <div className={classes.cardImageBox} style={{backgroundImage: `url('${props.thumbnailUrl}')`}}>
-          </div>
+          </div>}
+         
           <Card.Body>
             {props.isSearch ? cardBodyWide : cardBody}
             </Card.Body>

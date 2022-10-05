@@ -39,7 +39,8 @@
 }
 
 .likesBox {
-
+    display: flex;
+    align-items: center;
 }
 
 .like, .dislike {

@@ -47,6 +47,7 @@ const RelatedVideoCard =(props)=>{
         props.onFetchRelatedVideos(obj.id);
         fetchChannelIDetails(obj);
         navigate(`/${obj.id}`);
+        window.scrollTo(0, 0, 'auto');
     }
 
     const fetchChannelIDetails =(obj)=>{

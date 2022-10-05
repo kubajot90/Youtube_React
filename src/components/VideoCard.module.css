@@ -12,16 +12,6 @@
     background-position: center;
 }
 
-.cardImage {
-    /* width: 100%; */
-}
-
-/* .cardDescriptionWide {
-    flex-direction: column;
-    padding-left: 15px;
-    background-color: red;
-} */
-
 .profileImgBox {
     width: 36px;
     height: 36px;
@@ -29,10 +19,6 @@
     background-color: rgb(193, 192, 192);
     overflow: hidden;
 }
-
-/* .profileImgBoxWide {
-    order: 3;
-} */
 
 .profileImg {
     width: 100%;
@@ -43,13 +29,6 @@
     height: 155px;
     object-fit: cover;
 }
-
-/* .headerImgWide {
-    width: 360px;
-    height: 200px;
-    object-fit: cover;
-} */
-
 
 .descriptionBox {
 display: flex;
@@ -63,68 +42,27 @@ flex-basis: 82%;
     overflow: hidden;
 }
 
-/* .videoTitleBoxWide {
-    order: -1;
-    height: 50px;
-    margin-bottom: 0;
-    background-color: yellow;
-} */
-
 .videoTitle {
     font-size: 1.4rem;
     font-weight: 500;
 }
-
-/* .videoTitleWide {
-    font-size: 1.8rem;
-    font-weight: 400;
-    
-} */
 
  .channelTitle {
     font-size: 1.2rem;
     color: rgb(110, 110, 110);
 }
 
-
-/* .channelTitleWide {
-    position: absolute;
-    top: 87px;
-    margin-left: 44px;
-} */
-
 .subtitlesBox {
     display: flex;
 }
 
-/* .subtitlesBoxWide {
-    order:-1;
-} */
-
-/* .descriptionWide {
-    position: absolute;
-    top: 120px;
-    font-size: 1.2rem;
-    color: rgb(110, 110, 110);
-} */
-
-/* @media (max-width: 640px){
-    .descriptionWide {
-        top: calc(100% - 36px);
-      height: 36px;
-      overflow: hidden;
-    }
-    .videoTitleBoxWide {
-        
-       
-        
-    }
-} */
-
 .headerImgWide {
     width: 360px;
-    height: 200px;
-    object-fit: cover;
+    /* height: 200px; */
+    height: 15.5vw;
+    min-height: 134px;
+    object-fit:cover;
+    
 } 
 
 .cardBodyWide {
@@ -179,11 +117,7 @@ flex-basis: 82%;
 }
 
 
-/* @media (min-width: 576px){
-    .cardImageBox {
-        height: 50vw;
-    }
-} */
+
 
 @media (min-width: 768px){
     .cardImageBox {

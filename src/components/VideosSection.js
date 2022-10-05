@@ -53,6 +53,7 @@ import classes from './VideosSection.module.css';
     }
 
     useEffect(()=>{
+        window.scrollTo(0, 0, 'auto');
         !props.searchHandler && fetchVideos();
     }, [])
 
