@@ -117,8 +117,6 @@ flex-basis: 82%;
 }
 
 
-
-
 @media (min-width: 768px){
     .cardImageBox {
         height: 23vw;
@@ -130,7 +128,7 @@ flex-basis: 82%;
         height: 16vw;
     }
 }
-@media (min-width: 1200px){
+@media (min-width: 1270px){
     .cardImageBox {
         height: 12vw;
     }

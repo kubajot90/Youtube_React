@@ -18,15 +18,18 @@ import classes from './VideosSection.module.css';
     
     const [canFetch, setCanFetch] = useState(false);
     const [isSearch, setIsSearch] = useState(false);
+
+    const [loadingCard, setLoadingCard] = useState('');
     
     const canLoadMore = useRef(true);
-    const videosAmount = useRef(4);
+    const videosAmount = useRef(6);
+    const fetchMoreAfterScroll = useRef(true);
     // const navigate = useNavigate();
 
    
 
     useEffect(()=>{
-        videosAmount.current = 4;
+        videosAmount.current = 6;
         props.searchHandler && setSearch(props.searchHandler);
     },[props.searchHandler])
     
@@ -55,6 +58,7 @@ import classes from './VideosSection.module.css';
     useEffect(()=>{
         window.scrollTo(0, 0, 'auto');
         !props.searchHandler && fetchVideos();
+        setScreenSize();
     }, [])
 
 
@@ -145,7 +149,7 @@ import classes from './VideosSection.module.css';
     }
   
     const fetchMoreVideos =()=> {
-        videosAmount.current = videosAmount.current + 4; 
+        videosAmount.current = videosAmount.current + 6; 
         setCanFetch(true);
     }
 
@@ -159,8 +163,13 @@ import classes from './VideosSection.module.css';
     const setScroll = () => {
        const heightPercentage = `${(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100}`
     
-    if(heightPercentage > 99 && canLoadMore.current){
-        loadMoreVideos()
+    if(heightPercentage > 99 && canLoadMore.current && fetchMoreAfterScroll.current){
+        loadMoreVideos();
+        fetchMoreAfterScroll.current = false;
+    }
+
+    if(heightPercentage < 85 && !fetchMoreAfterScroll.current){
+        fetchMoreAfterScroll.current = true;
     }
 }
   
@@ -171,18 +180,39 @@ import classes from './VideosSection.module.css';
       };
     }, []);
 
+    const setScreenSize =()=>{
+        console.log('Screen');
+        if(window.innerWidth < 768){ loadingCards(1)} else
+        if(window.innerWidth < 992){loadingCards(2)} else
+        if(window.innerWidth < 1270){loadingCards(3)} else
+        if(window.innerWidth < 1570){loadingCards(4)}
+    }
+    
+    useEffect(() => {
+      window.addEventListener("resize", setScreenSize);
+      return () => {
+        window.removeEventListener("resize", setScreenSize);
+      };
+    }, []);
+
     const loadMoreVideos =()=>{
         canLoadMore.current = false;
         fetchMoreVideos();
     }
     
-    const loadingCards=    
-    <><LoadingCard/><LoadingCard/><LoadingCard/><LoadingCard/></>;
+    const loadingCards =(amount)=>{
+        let cardsArr=[];
+     for(let i = 0; i < amount; i++){
+            cardsArr.push(<LoadingCard/>)
+        }
+        const cards = cardsArr.map((card)=>card);
+        setLoadingCard(cards)
+    }
 
 return(
     <div  className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
             { createCards }
-            {!isSearch && loadingCards}
+            {!isSearch && loadingCard}
           
     </div>
 ) 

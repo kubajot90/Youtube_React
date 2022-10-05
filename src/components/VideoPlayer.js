@@ -4,6 +4,7 @@ import RelatedVideoCard from './RelatedVideoCard';
 import CommentCard from './CommentCard';
 import SubscriberCounter from './SubscriberCounter';
 import ButtonShowMore from './ButtonShowMore';
+import { Oval } from 'react-loader-spinner'
 import Linkify from 'react-linkify';
 import {API_KEY} from '../App';
 
@@ -19,21 +20,23 @@ const VideoPlayer =(props)=>{
     const [currentVideoDetails, setCurrentVideoDetails] = useState({});
     const [isBtnActive, setIsBtnActive] = useState(false);
     const [showButtonMore, setShowButtonMore] = useState(false);
+    const [showFetchMoreLoader, setShowFetchMoreLoader] = useState(false);
     const descriptionRef = useRef();
     const commentsAmmount = useRef(3);
     const relatedVidAmmount = useRef(10);
     const allowFetchMore = useRef(true);
 
     const fetchComments = ()=>{
+        setShowFetchMoreLoader(true);
         fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=${apiKey}&textFormat=plainText&part=snippet&videoId=${id.id}&maxResults=${commentsAmmount.current}`)
         .then((response)=>response.json())
         .then((responseData)=>{
-            setComments(responseData)
+            setComments(responseData);
+            setShowFetchMoreLoader(false)
         })
         };
 
         const fetchRelatedVideos = (id)=>{
-            // window.scrollTo(0, 0, 'auto');
             fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${id}&type=video&key=${apiKey}&maxResults=${relatedVidAmmount.current}`)
             .then((response)=>response.json())
             .then((responseData)=>{
@@ -84,13 +87,12 @@ const VideoPlayer =(props)=>{
             const heightPercentage = `${(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100}`
          
          if(heightPercentage > 99 && allowFetchMore.current){
-             console.log('SCROLL EVENT DZIALA');
              fetchMoreComments();
              fetchMoreRelatedVid();
              allowFetchMore.current = false;
          }
          
-         if(heightPercentage < 80 && !allowFetchMore.current){
+         if(heightPercentage < 85 && !allowFetchMore.current){
              allowFetchMore.current = true;
          }
      }
@@ -140,10 +142,34 @@ const VideoPlayer =(props)=>{
             </div>
             <div className={`${classes.relatedVideosSection}  `}>
                 <RelatedVideoCard relatedVideos={relatedVideos} onFetchRelatedVideos={fetchRelatedVideos} onChangeVideoDetails={props.onChangeVideoDetails}/>
+                {showFetchMoreLoader && <Oval
+                    height={35}
+                    width={35}
+                    color="rgb(170, 170, 170)"
+                    wrapperStyle={{}}
+                    wrapperClass={`${classes.oval}`}
+                    visible={true}
+                    ariaLabel='oval-loading'
+                    secondaryColor="rgb(232, 232, 232)"
+                    strokeWidth={4}
+                    strokeWidthSecondary={4}
+                    />}
             </div>
             <div className={`${classes.commentsSection} `}>
                 <CommentCard comments={comments.items}/>
             </div>
+           {showFetchMoreLoader && <Oval
+  height={35}
+  width={35}
+  color="rgb(170, 170, 170)"
+  wrapperStyle={{}}
+  wrapperClass={`${classes.oval}`}
+  visible={true}
+  ariaLabel='oval-loading'
+  secondaryColor="rgb(232, 232, 232)"
+  strokeWidth={4}
+  strokeWidthSecondary={4}
+/>}
         </div>
     
     )

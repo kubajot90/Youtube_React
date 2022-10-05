@@ -1,6 +1,7 @@
 .loadingImg {
-    width: 279px; 
-    height: 155px;
+    /* width: 279px;  */
+    width: auto; 
+    min-height: 155px;
     background-color: rgb(228, 228, 228);
   
 }
@@ -38,4 +39,26 @@
     margin-top: 13px;
     border-radius: 2px;
     background-color: rgb(228, 228, 228);
+}
+
+@media (min-width: 768px){
+    .loadingImg {
+        height: 23vw;
+    }
+}
+
+@media (min-width: 992px){
+    .loadingImg {
+        height: 16vw;
+    }
+}
+@media (min-width: 1270px){
+    .loadingImg {
+        height: 12vw;
+    }
+}
+@media (min-width: 1570px){
+    .loadingImg {
+        height: 9.7vw;
+    }
 }
