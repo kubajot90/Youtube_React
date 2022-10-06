@@ -30,7 +30,6 @@ const RelatedVideoCard =(props)=>{
                         {video.snippet.channelTitle}
                     </div>
                     <div className={classes.counters}>
-                        {/* <ViewCounter viewCount={props.viewCount} /> */}
                         <DateCounter date={video.snippet.publishedAt} />
                     </div>
                 </div>

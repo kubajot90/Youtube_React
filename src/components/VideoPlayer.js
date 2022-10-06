@@ -21,6 +21,7 @@ const VideoPlayer =(props)=>{
     const [isBtnActive, setIsBtnActive] = useState(false);
     const [showButtonMore, setShowButtonMore] = useState(false);
     const [showFetchMoreLoader, setShowFetchMoreLoader] = useState(false);
+    const [loaderBarWidth, setLoaderBarWidth] = useState(0)
     const descriptionRef = useRef();
     const commentsAmmount = useRef(3);
     const relatedVidAmmount = useRef(10);
@@ -32,7 +33,8 @@ const VideoPlayer =(props)=>{
         .then((response)=>response.json())
         .then((responseData)=>{
             setComments(responseData);
-            setShowFetchMoreLoader(false)
+            setShowFetchMoreLoader(false);
+            setLoaderBarWidth(40)
         })
         };
 
@@ -40,11 +42,13 @@ const VideoPlayer =(props)=>{
             fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${id}&type=video&key=${apiKey}&maxResults=${relatedVidAmmount.current}`)
             .then((response)=>response.json())
             .then((responseData)=>{
-               setRelatedVideos(responseData.items)
+               setRelatedVideos(responseData.items);
+               setLoaderBarWidth(100);
             })
             };
     
         useEffect(()=>{
+            setLoaderBarWidth(20)
             fetchRelatedVideos(id.id);
             fetchComments();
         }, [])
@@ -104,7 +108,17 @@ const VideoPlayer =(props)=>{
            };
          }, []);
 
+         useEffect(()=>{
+            loaderBarWidth === 100 && setTimeout(()=>setLoaderBarWidth(0), 1000);
+     
+             return clearTimeout(()=>setLoaderBarWidth(0), 1000)
+         },[loaderBarWidth])
+
     return(
+        <>
+           {loaderBarWidth > 0 && <div className={classes.topLoaderBox}>
+        <div className={classes.topLoader} style={{width: `${loaderBarWidth}%`}}></div>
+        </div>}
         <div className={`${classes.VideoPlayer} `}>
             <div className={classes.playerContainer}>
                 <div className={classes.playerSection}>
@@ -140,7 +154,7 @@ const VideoPlayer =(props)=>{
                     </div>
                 </div>
             </div>
-            <div className={`${classes.relatedVideosSection}  `}>
+            <div className={classes.relatedVideosSection}>
                 <RelatedVideoCard relatedVideos={relatedVideos} onFetchRelatedVideos={fetchRelatedVideos} onChangeVideoDetails={props.onChangeVideoDetails}/>
                 {showFetchMoreLoader && <Oval
                     height={35}
@@ -154,6 +168,7 @@ const VideoPlayer =(props)=>{
                     strokeWidth={4}
                     strokeWidthSecondary={4}
                     />}
+                    <button className={classes.relatedVideoBtn}>POKAŻ WIĘCEJ</button>
             </div>
             <div className={`${classes.commentsSection} `}>
                 <CommentCard comments={comments.items}/>
@@ -171,7 +186,7 @@ const VideoPlayer =(props)=>{
   strokeWidthSecondary={4}
 />}
         </div>
-    
+        </>
     )
 }
 export default VideoPlayer;

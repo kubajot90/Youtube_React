@@ -24,8 +24,8 @@ import classes from './VideosSection.module.css';
     const canLoadMore = useRef(true);
     const videosAmount = useRef(6);
     const fetchMoreAfterScroll = useRef(true);
-    // const navigate = useNavigate();
 
+    // const [loaderBarWidth, setLoaderBarWidth] = useState(0)
    
 
     useEffect(()=>{
@@ -44,6 +44,7 @@ import classes from './VideosSection.module.css';
 
    
     const fetchVideos = ()=>{
+        // setLoaderBarWidth(20)
         clearVideosDetails();
 
         fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount.current}`)
@@ -52,6 +53,7 @@ import classes from './VideosSection.module.css';
             if(responseData.items.length){
                 setVideos(responseData.items)
             }
+            // setLoaderBarWidth(40)
         })
     }
 
@@ -98,7 +100,10 @@ import classes from './VideosSection.module.css';
                     };
                    profilesArr.push(obj);
             })
-            .then(()=>setProfilesImgObj([...profilesArr]))
+            .then(()=>{
+                // setLoaderBarWidth(prev=> prev +( (100 - 40)/ videosAmount.current))
+                setProfilesImgObj([...profilesArr])
+            })
             });
     }
    
@@ -209,12 +214,25 @@ import classes from './VideosSection.module.css';
         setLoadingCard(cards)
     }
 
+    // useEffect(()=>{
+    //    loaderBarWidth === 100 && setTimeout(()=>setLoaderBarWidth(0), 1000);
+
+    //     return clearTimeout(()=>setLoaderBarWidth(0), 1000)
+    // },[loaderBarWidth])
+
 return(
-    <div  className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
+    <>
+    {/* {loaderBarWidth > 0 && <div className={classes.topLoaderBox}>
+        <div className={classes.topLoader} style={{width: `${loaderBarWidth}%`}}></div>
+    </div>} */}
+    
+     <div  className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
             { createCards }
             {!isSearch && loadingCard}
           
     </div>
+    </>
+   
 ) 
 }
 
