@@ -21,11 +21,14 @@ const VideoPlayer =(props)=>{
     const [isBtnActive, setIsBtnActive] = useState(false);
     const [showButtonMore, setShowButtonMore] = useState(false);
     const [showFetchMoreLoader, setShowFetchMoreLoader] = useState(false);
-    const [loaderBarWidth, setLoaderBarWidth] = useState(0)
+    const [loaderBarWidth, setLoaderBarWidth] = useState(0);
+    const [showButtonMoreRelated, setShowButtonMoreRelated] = useState(null);
+
     const descriptionRef = useRef();
     const commentsAmmount = useRef(3);
     const relatedVidAmmount = useRef(10);
     const allowFetchMore = useRef(true);
+    const topLoaderRef = useRef();
 
     const fetchComments = ()=>{
         setShowFetchMoreLoader(true);
@@ -48,7 +51,8 @@ const VideoPlayer =(props)=>{
             };
     
         useEffect(()=>{
-            setLoaderBarWidth(20)
+            setScreenSize();
+            setLoaderBarWidth(30);
             fetchRelatedVideos(id.id);
             fetchComments();
         }, [])
@@ -91,9 +95,10 @@ const VideoPlayer =(props)=>{
             const heightPercentage = `${(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100}`
          
          if(heightPercentage > 99 && allowFetchMore.current){
-             fetchMoreComments();
-             fetchMoreRelatedVid();
-             allowFetchMore.current = false;
+            topLoaderRef.current.style.visibility = 'hidden';
+            fetchMoreComments();
+            fetchMoreRelatedVid();
+            allowFetchMore.current = false;
          }
          
          if(heightPercentage < 85 && !allowFetchMore.current){
@@ -112,13 +117,36 @@ const VideoPlayer =(props)=>{
             loaderBarWidth === 100 && setTimeout(()=>setLoaderBarWidth(0), 1000);
      
              return clearTimeout(()=>setLoaderBarWidth(0), 1000)
-         },[loaderBarWidth])
+         },[loaderBarWidth]);
+
+         const setLoaderHandler =(num)=>{
+            topLoaderRef.current.style.visibility = 'visible';
+            setLoaderBarWidth(num)
+         }
+
+        const showMoreRelated =()=>{
+            topLoaderRef.current.style.visibility = 'hidden';
+            fetchMoreComments();
+            fetchMoreRelatedVid();
+        }
+
+        const setScreenSize =()=>{
+            window.innerWidth < 1000 ?
+                setShowButtonMoreRelated(true) : setShowButtonMoreRelated(false) ;
+        }
+        
+        useEffect(() => {
+          window.addEventListener("resize", setScreenSize);
+          return () => {
+            window.removeEventListener("resize", setScreenSize);
+          };
+        }, []);
 
     return(
         <>
-           {loaderBarWidth > 0 && <div className={classes.topLoaderBox}>
-        <div className={classes.topLoader} style={{width: `${loaderBarWidth}%`}}></div>
-        </div>}
+           <div ref={topLoaderRef} className={classes.topLoaderBox}>
+           {loaderBarWidth > 0 && <div className={classes.topLoader} style={{width: `${loaderBarWidth}%`}}></div>}
+        </div>
         <div className={`${classes.VideoPlayer} `}>
             <div className={classes.playerContainer}>
                 <div className={classes.playerSection}>
@@ -155,7 +183,7 @@ const VideoPlayer =(props)=>{
                 </div>
             </div>
             <div className={classes.relatedVideosSection}>
-                <RelatedVideoCard relatedVideos={relatedVideos} onFetchRelatedVideos={fetchRelatedVideos} onChangeVideoDetails={props.onChangeVideoDetails}/>
+                <RelatedVideoCard onSetLoader={setLoaderHandler} relatedVideos={relatedVideos} onFetchRelatedVideos={fetchRelatedVideos} onChangeVideoDetails={props.onChangeVideoDetails}/>
                 {showFetchMoreLoader && <Oval
                     height={35}
                     width={35}
@@ -168,7 +196,7 @@ const VideoPlayer =(props)=>{
                     strokeWidth={4}
                     strokeWidthSecondary={4}
                     />}
-                    <button className={classes.relatedVideoBtn}>POKAŻ WIĘCEJ</button>
+                    {showButtonMoreRelated && <button onClick={showMoreRelated} className={classes.relatedVideoBtn}>POKAŻ WIĘCEJ</button>}
             </div>
             <div className={`${classes.commentsSection} `}>
                 <CommentCard comments={comments.items}/>

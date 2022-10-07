@@ -4,5 +4,6 @@ body, html {
   font-family: 'Roboto', sans-serif;
   font-size: 10px;
   scroll-behavior: auto !important;
+  box-sizing: border-box;
 }
 

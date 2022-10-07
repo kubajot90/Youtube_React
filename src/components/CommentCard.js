@@ -7,8 +7,6 @@ const CommentCard =(props)=>{
     const [comments, setComments] = useState([])
 
    const createComments =()=>{
-    console.log('CREATE COMMENTS');
-    console.log('props.comments', props.comments);
     const comments = props.comments.map((comment)=>{
         const authorImg = comment.snippet.topLevelComment.snippet.authorProfileImageUrl;
         const author = comment.snippet.topLevelComment.snippet.authorDisplayName;
@@ -43,11 +41,9 @@ const CommentCard =(props)=>{
    }
 
     useEffect(()=>{
-        // console.log(props.comments);
         if(!props.comments){
             return
         }else {
-            console.log('props.comments', props.comments);
             createComments()};
     },[props.comments])
 

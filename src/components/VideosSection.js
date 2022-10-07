@@ -7,7 +7,6 @@ import classes from './VideosSection.module.css';
 
  const VideosSection=(props)=>{
     const apiKey= useContext(API_KEY);
-    // const apiKey= 'AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k';
     const [search, setSearch] = useState('programming')
     const defaultSearch = 'programming';
     
@@ -22,11 +21,8 @@ import classes from './VideosSection.module.css';
     const [loadingCard, setLoadingCard] = useState('');
     
     const canLoadMore = useRef(true);
-    const videosAmount = useRef(6);
+    const videosAmount = useRef(12);
     const fetchMoreAfterScroll = useRef(true);
-
-    // const [loaderBarWidth, setLoaderBarWidth] = useState(0)
-   
 
     useEffect(()=>{
         videosAmount.current = 6;
@@ -44,7 +40,6 @@ import classes from './VideosSection.module.css';
 
    
     const fetchVideos = ()=>{
-        // setLoaderBarWidth(20)
         clearVideosDetails();
 
         fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount.current}`)
@@ -53,7 +48,6 @@ import classes from './VideosSection.module.css';
             if(responseData.items.length){
                 setVideos(responseData.items)
             }
-            // setLoaderBarWidth(40)
         })
     }
 
@@ -101,7 +95,6 @@ import classes from './VideosSection.module.css';
                    profilesArr.push(obj);
             })
             .then(()=>{
-                // setLoaderBarWidth(prev=> prev +( (100 - 40)/ videosAmount.current))
                 setProfilesImgObj([...profilesArr])
             })
             });
@@ -186,7 +179,6 @@ import classes from './VideosSection.module.css';
     }, []);
 
     const setScreenSize =()=>{
-        console.log('Screen');
         if(window.innerWidth < 768){ loadingCards(1)} else
         if(window.innerWidth < 992){loadingCards(2)} else
         if(window.innerWidth < 1270){loadingCards(3)} else
@@ -208,28 +200,17 @@ import classes from './VideosSection.module.css';
     const loadingCards =(amount)=>{
         let cardsArr=[];
      for(let i = 0; i < amount; i++){
-            cardsArr.push(<LoadingCard/>)
+            cardsArr.push(<LoadingCard key={i} />)
         }
         const cards = cardsArr.map((card)=>card);
         setLoadingCard(cards)
     }
 
-    // useEffect(()=>{
-    //    loaderBarWidth === 100 && setTimeout(()=>setLoaderBarWidth(0), 1000);
-
-    //     return clearTimeout(()=>setLoaderBarWidth(0), 1000)
-    // },[loaderBarWidth])
-
 return(
-    <>
-    {/* {loaderBarWidth > 0 && <div className={classes.topLoaderBox}>
-        <div className={classes.topLoader} style={{width: `${loaderBarWidth}%`}}></div>
-    </div>} */}
-    
+    <> 
      <div  className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
             { createCards }
             {!isSearch && loadingCard}
-          
     </div>
     </>
    

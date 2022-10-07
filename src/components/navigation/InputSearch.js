@@ -66,6 +66,7 @@ const InputSearch=(props)=>{
            {isSearchBtnClick && arrowBackButton}
             <div className={classes.inputBox}>
                 <input ref={inputRef} placeholder="Szukaj" onBlur={showLogoAfterBlur}  onChange={inputValueHandler} className={`${classes.inputSearch} ${!isSearchBtnClick && classes.inputSearchResponsive}`}/>
+                
                 <div className={`${classes.iconBox} ${!isSearchBtnClick && classes.iconBoxResponsive}`}>
                     <IoSearchOutline className={classes.searchIconFocus}/>
                 </div>

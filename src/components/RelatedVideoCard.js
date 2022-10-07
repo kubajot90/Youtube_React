@@ -43,6 +43,7 @@ const RelatedVideoCard =(props)=>{
     },[props.relatedVideos])
      
     const moveToPlayer =(obj)=>{
+        props.onSetLoader(20)
         props.onFetchRelatedVideos(obj.id);
         fetchChannelIDetails(obj);
         navigate(`/${obj.id}`);
@@ -54,7 +55,6 @@ const RelatedVideoCard =(props)=>{
                 fetch(`https://youtube.googleapis.com/youtube/v3/channels?key=${apiKey}&part=snippet&part=statistics&id=${obj.channelId}`)
             .then((response)=>response.json())
             .then((responseData)=>{
-                console.log(' related video responseData' , responseData);
                 const imgUrl = responseData.items[0].snippet.thumbnails.medium.url
                         
                 props.onChangeVideoDetails(prev=>[...prev, {
