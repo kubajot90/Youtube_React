@@ -14,7 +14,7 @@ const Navigation=(props)=> {
   }
 
   const BackHomePage =()=> {
-    navigate(0)
+    navigate('/')
   }
 
   const showLogo =(state)=>{
