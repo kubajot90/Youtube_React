@@ -25,7 +25,7 @@ import classes from './VideosSection.module.css';
     const fetchMoreAfterScroll = useRef(true);
 
     useEffect(()=>{
-        videosAmount.current = 6;
+        videosAmount.current = 12;
         props.searchHandler && setSearch(props.searchHandler);
     },[props.searchHandler])
     
@@ -147,7 +147,7 @@ import classes from './VideosSection.module.css';
     }
   
     const fetchMoreVideos =()=> {
-        videosAmount.current = videosAmount.current + 6; 
+        videosAmount.current = videosAmount.current + 12; 
         setCanFetch(true);
     }
 
