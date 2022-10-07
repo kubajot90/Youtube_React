@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import logoSvg from '../../assets/YouTube_Logo_2017.svg';
 import InputSearch from './InputSearch';
 import { useNavigate } from "react-router-dom";
+import { PlayerOpenUpdateContext } from '../../context/PlayerOpenContext';
 
 import classes from './Navigation.module.css';
 
 const Navigation=(props)=> {
+  const PlayerOpenUpdateFunc = useContext(PlayerOpenUpdateContext);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
   const navigate = useNavigate();
 
@@ -14,6 +16,7 @@ const Navigation=(props)=> {
   }
 
   const BackHomePage =()=> {
+    PlayerOpenUpdateFunc(false)
     navigate('/')
   }
 
