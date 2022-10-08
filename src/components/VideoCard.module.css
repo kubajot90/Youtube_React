@@ -12,6 +12,17 @@
     background-position: center;
 }
 
+.cardImageBoxWide {
+    flex-basis: 90%;
+    min-height: 134px;
+    min-width: 240px;
+    max-width: 360px;
+    max-height: 200px;
+    height: 23vw;
+    background-size:cover;
+    background-position: center;
+}
+
 .profileImgBox {
     width: 36px;
     height: 36px;
@@ -62,8 +73,16 @@ flex-basis: 82%;
     height: 15.5vw;
     min-height: 134px;
     object-fit:cover;
-    
+    flex-basis: 50%;
 } 
+
+.card, .card-img-top {
+    /* flex-basis: 50%; */
+}
+
+.card-body {
+   /* width: 100%; */
+}
 
 .cardBodyWide {
     margin-left: 18px;

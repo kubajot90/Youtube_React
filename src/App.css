@@ -9,6 +9,11 @@ cursor: pointer;
     padding: 0;
 }
 
+.card-body {
+   width: 100%;
+   max-width: 720px;
+}
+
 p {
     margin: 0;
 }

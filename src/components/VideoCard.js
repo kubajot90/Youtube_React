@@ -51,12 +51,10 @@ const VideoCard=(props)=>{
 </div>
   
     return(  
-       <Card onClick={()=>{moveToPlayer(); PlayerOpenUpdateFunc(true)}} style={{ minWidth: '277px', backgroundColor:'transparent' }} className={`${props.isSearch ? 'col-12 flex-row' : 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1 '} m-3 flex-grow-1 `}>
+       <Card onClick={()=>{moveToPlayer(); PlayerOpenUpdateFunc(true)}} style={{ minWidth: '277px', maxWidth: '1096px', backgroundColor:'transparent' }} className={`${props.isSearch ? 'col-12 flex-row' : 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1 '} m-3 flex-grow-1 `}>
 
-        {props.isSearch ?
-         <Card.Img variant="top" src={props.thumbnailUrl} className={classes.headerImgWide}/> :
-          <div className={classes.cardImageBox} style={{backgroundImage: `url('${props.thumbnailUrl}')`}}>
-          </div>}
+          <div className={`${props.isSearch ? classes.cardImageBoxWide : classes.cardImageBox}`} style={{backgroundImage: `url('${props.thumbnailUrl}')`}}>
+          </div>
          
           <Card.Body>
             {props.isSearch ? cardBodyWide : cardBody}
