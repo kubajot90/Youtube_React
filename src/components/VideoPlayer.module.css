@@ -18,10 +18,13 @@
  
 }
 
+.playerSection {
+    width: 100%;
+}
+
 .relatedVideosSection {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     grid-area: relatedVideo;
     margin-bottom: 20px;
 }
@@ -162,7 +165,8 @@
 }
 @media (max-width: 640px){
     .VideoPlayer {
-        grid-template-columns: 427px;
+        /* grid-template-columns: 427px; */
+        grid-template-columns: 100%;
        
     }
 }

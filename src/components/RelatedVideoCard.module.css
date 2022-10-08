@@ -4,7 +4,6 @@
     margin-bottom: 9px;
     margin-left: 20px;
     cursor: pointer;
-    
 }
 
 .imageBox {
@@ -30,4 +29,10 @@
 .chanellTitle {
     font-size: 1.2rem;
     color: rgb(110, 110, 110);
+}
+
+@media(max-width:992px){
+    .relatedVideoCard {
+        min-width: auto; 
+    }
 }
