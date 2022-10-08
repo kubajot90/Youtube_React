@@ -22,7 +22,7 @@ const Main=(props)=>{
         <Fragment>
             <Navigation searchHandler={searchHandler}/>
             <Routes>
-                <Route path='/' element={<VideosSection key={props.key} searchHandler={searchTerm} onChangeVideoDetails={changeVideoDetails}/>}/>
+                <Route path='/' element={<VideosSection iskeyValid={props.iskeyValid} key={props.key} searchHandler={searchTerm} onChangeVideoDetails={changeVideoDetails}/>}/>
                 <Route path='/:id' element={<VideoPlayer videosDetails={videosDetails} onChangeVideoDetails={changeVideoDetails}/>}/>
             </Routes>
         </Fragment>

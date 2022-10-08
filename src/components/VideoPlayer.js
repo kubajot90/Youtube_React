@@ -38,7 +38,9 @@ const VideoPlayer =(props)=>{
             setComments(responseData);
             setShowFetchMoreLoader(false);
             setLoaderBarWidth(40)
-        })
+        }).catch((error) => {
+            console.error('Error:', error);
+          });
         };
 
         const fetchRelatedVideos = (id)=>{
@@ -47,7 +49,9 @@ const VideoPlayer =(props)=>{
             .then((responseData)=>{
                setRelatedVideos(responseData.items);
                setLoaderBarWidth(100);
-            })
+            }).catch((error) => {
+                console.error('Error:', error);
+              });
             };
     
         useEffect(()=>{

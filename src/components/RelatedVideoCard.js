@@ -47,7 +47,6 @@ const RelatedVideoCard =(props)=>{
         props.onFetchRelatedVideos(obj.id);
         fetchChannelIDetails(obj);
         navigate(`/${obj.id}`);
-        // window.scrollTo(0, 0, 'auto');
     }
 
     const fetchChannelIDetails =(obj)=>{
@@ -67,7 +66,9 @@ const RelatedVideoCard =(props)=>{
                     subscriberCount: responseData.items[0].statistics.subscriberCount,
                 }])
                       
-                }).then(()=>window.scrollTo(0, 0, 'auto'))
+                }).then(()=>window.scrollTo(0, 0, 'auto')).catch((error) => {
+                    console.error('Error:', error);
+                  });
                 
     }
 

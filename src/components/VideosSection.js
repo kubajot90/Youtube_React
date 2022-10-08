@@ -40,7 +40,6 @@ import classes from './VideosSection.module.css';
 
    
     const fetchVideos = ()=>{
-        console.log('video section');
         clearVideosDetails();
         fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount.current}`)
         .then((response)=> response.json())
@@ -48,14 +47,18 @@ import classes from './VideosSection.module.css';
             if(responseData.items.length){
                 setVideos(responseData.items)
             }
-        })
+        }).catch((error) => {
+            console.error('Error:', error);
+          });
     }
 
     useEffect(()=>{
+        if(props.iskeyValid){
         window.scrollTo(0, 0, 'auto');
-        !props.searchHandler && fetchVideos();
-        setScreenSize();
-    }, [])
+            !props.searchHandler && fetchVideos();
+            setScreenSize();
+        }
+    }, [props.iskeyValid])
 
 
     useEffect( () => {
@@ -96,7 +99,9 @@ import classes from './VideosSection.module.css';
             })
             .then(()=>{
                 setProfilesImgObj([...profilesArr])
-            })
+            }).catch((error) => {
+                console.error('Error:', error);
+              });
             });
     }
    
@@ -218,13 +223,3 @@ return(
 }
 
  export default VideosSection;
-
-    //   API KEY: AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I - 
-    //   API KEY: AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw -
-    //   API KEY: AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8 -
-    //   API KEY: AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k 
-    //   API KEY: AIzaSyBNOVRGK5yft4Ch2RWyKOITKHzkT1Y9SgA 
-    //   API KEY: AIzaSyAbOuHpUIPm08qQN3Yxlg4tjRAyluOQklc 
-    //   API KEY: AIzaSyDwOhD_EqgdyzGC3E_20GYXVI1Zq0rhIMA 
-    
-    //   API KEY: AIzaSyDGNmsrYlb33hVN_6hEZrjLQaQFo1aZ2Xw 
