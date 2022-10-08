@@ -17,7 +17,8 @@ const Navigation=(props)=> {
 
   const BackHomePage =()=> {
     PlayerOpenUpdateFunc(false)
-    navigate('/')
+    // navigate('/')
+    window.location.reload(false);
   }
 
   const showLogo =(state)=>{

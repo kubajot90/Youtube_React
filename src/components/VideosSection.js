@@ -40,8 +40,8 @@ import classes from './VideosSection.module.css';
 
    
     const fetchVideos = ()=>{
+        console.log('video section');
         clearVideosDetails();
-
         fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount.current}`)
         .then((response)=> response.json())
         .then((responseData)=>{

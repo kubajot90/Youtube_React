@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navigation from "./navigation/Navigation";
 import VideosSection from "./VideosSection";
@@ -6,7 +6,7 @@ import VideoPlayer from "./VideoPlayer";
 
 
 
-const Main=()=>{
+const Main=(props)=>{
     const [searchTerm, setSearchTerm] = useState('');
     const [videosDetails, setVideosDetails] = useState([]);
 
@@ -22,7 +22,7 @@ const Main=()=>{
         <Fragment>
             <Navigation searchHandler={searchHandler}/>
             <Routes>
-                <Route path='/' element={<VideosSection searchHandler={searchTerm} onChangeVideoDetails={changeVideoDetails}/>}/>
+                <Route path='/' element={<VideosSection key={props.key} searchHandler={searchTerm} onChangeVideoDetails={changeVideoDetails}/>}/>
                 <Route path='/:id' element={<VideoPlayer videosDetails={videosDetails} onChangeVideoDetails={changeVideoDetails}/>}/>
             </Routes>
         </Fragment>

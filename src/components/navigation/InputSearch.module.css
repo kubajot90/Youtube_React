@@ -132,6 +132,7 @@
     height:2.7rem;
     width: 2.7rem;
    color: rgb(99, 99, 99);
+   z-index: 9999;
 
 }
 

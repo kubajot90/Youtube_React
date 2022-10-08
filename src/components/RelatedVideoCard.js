@@ -47,11 +47,10 @@ const RelatedVideoCard =(props)=>{
         props.onFetchRelatedVideos(obj.id);
         fetchChannelIDetails(obj);
         navigate(`/${obj.id}`);
-        window.scrollTo(0, 0, 'auto');
+        // window.scrollTo(0, 0, 'auto');
     }
 
     const fetchChannelIDetails =(obj)=>{
-        
                 fetch(`https://youtube.googleapis.com/youtube/v3/channels?key=${apiKey}&part=snippet&part=statistics&id=${obj.channelId}`)
             .then((response)=>response.json())
             .then((responseData)=>{
@@ -68,10 +67,8 @@ const RelatedVideoCard =(props)=>{
                     subscriberCount: responseData.items[0].statistics.subscriberCount,
                 }])
                       
-                })
+                }).then(()=>window.scrollTo(0, 0, 'auto'))
                 
-                
-       
     }
 
     return(<>{createCards}</>)
