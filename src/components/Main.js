@@ -9,7 +9,7 @@ import VideoPlayer from "./VideoPlayer";
 const Main=(props)=>{
     const [searchTerm, setSearchTerm] = useState('');
     const [videosDetails, setVideosDetails] = useState([]);
-
+    
     const changeVideoDetails =(obj)=>{
         setVideosDetails(obj)
     }

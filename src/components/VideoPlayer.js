@@ -148,7 +148,7 @@ const VideoPlayer =(props)=>{
 
     return(
         <>
-           <div ref={topLoaderRef} className={classes.topLoaderBox}>
+        <div ref={topLoaderRef} className={classes.topLoaderBox}>
            {loaderBarWidth > 0 && <div className={classes.topLoader} style={{width: `${loaderBarWidth}%`}}></div>}
         </div>
         <div className={`${classes.VideoPlayer} `}>

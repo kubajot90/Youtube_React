@@ -15,7 +15,7 @@
 .cardImageBoxWide {
     flex-basis: 90%;
     min-height: 134px;
-    min-width: 240px;
+    min-width: 180px;
     max-width: 360px;
     max-height: 200px;
     height: 23vw;

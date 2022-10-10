@@ -19,10 +19,12 @@ import classes from './VideosSection.module.css';
     const [isSearch, setIsSearch] = useState(false);
 
     const [loadingCard, setLoadingCard] = useState('');
+    const [loaderBarWidth, setLoaderBarWidth] = useState(0);
     
     const canLoadMore = useRef(true);
     const videosAmount = useRef(12);
     const fetchMoreAfterScroll = useRef(true);
+    const topLoaderRef = useRef();
 
     useEffect(()=>{
         videosAmount.current = 12;
@@ -30,8 +32,6 @@ import classes from './VideosSection.module.css';
     },[props.searchHandler])
     
     useEffect(()=>{
-       
-        
          if(search !== defaultSearch){
             props.searchHandler && setCanFetch(true);
             props.searchHandler && setIsSearch(true);
@@ -40,6 +40,7 @@ import classes from './VideosSection.module.css';
 
    
     const fetchVideos = ()=>{
+        isSearch && setLoaderBarWidth(30);
         clearVideosDetails();
         fetch(`https://youtube.googleapis.com/youtube/v3/search?key=${apiKey}&videoEmbeddable=true&order=viewCount&q=${search}&type=video&part=snippet&maxResults=${videosAmount.current}`)
         .then((response)=> response.json())
@@ -47,6 +48,7 @@ import classes from './VideosSection.module.css';
             if(responseData.items.length){
                 setVideos(responseData.items)
             }
+            isSearch && setLoaderBarWidth(45);
         }).catch((error) => {
             console.error('Error:', error);
           });
@@ -82,6 +84,8 @@ import classes from './VideosSection.module.css';
     },[channelIds]);
 
     const fetchProfileImgUrl =()=>{ 
+        isSearch && setLoaderBarWidth(55);
+        isSearch && window.scrollTo(0, 0, 'auto');
         let profilesArr =[];
         channelIds.forEach((id)=>{
             fetch(`https://youtube.googleapis.com/youtube/v3/channels?key=${apiKey}&part=snippet&part=statistics&id=${id}`)
@@ -98,7 +102,8 @@ import classes from './VideosSection.module.css';
                    profilesArr.push(obj);
             })
             .then(()=>{
-                setProfilesImgObj([...profilesArr])
+                setProfilesImgObj([...profilesArr]);
+                isSearch && setLoaderBarWidth(prev=> prev + ( 45/videosAmount.current  ))
             }).catch((error) => {
                 console.error('Error:', error);
               });
@@ -211,8 +216,17 @@ import classes from './VideosSection.module.css';
         setLoadingCard(cards)
     }
 
+    useEffect(()=>{
+        loaderBarWidth === 100 && setTimeout(()=>setLoaderBarWidth(0), 1000);
+ 
+         return clearTimeout(()=>setLoaderBarWidth(0), 1000)
+     },[loaderBarWidth]);
+
 return(
-    <> 
+    <>
+     <div ref={topLoaderRef} className={classes.topLoaderBox}>
+           {loaderBarWidth > 0 && <div className={classes.topLoader} style={{width: `${loaderBarWidth}%`}}></div>}
+     </div>
      <div  className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
             { createCards }
             {!isSearch && loadingCard}

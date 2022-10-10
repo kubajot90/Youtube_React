@@ -1,7 +1,7 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import logoSvg from '../../assets/YouTube_Logo_2017.svg';
 import InputSearch from './InputSearch';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { PlayerOpenUpdateContext } from '../../context/PlayerOpenContext';
 
 import classes from './Navigation.module.css';
@@ -9,7 +9,7 @@ import classes from './Navigation.module.css';
 const Navigation=(props)=> {
   const PlayerOpenUpdateFunc = useContext(PlayerOpenUpdateContext);
   const [isLogoVisible, setIsLogoVisible] = useState(true);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const searchHandler=(value)=>{
     props.searchHandler(value);
@@ -17,7 +17,6 @@ const Navigation=(props)=> {
 
   const BackHomePage =()=> {
     PlayerOpenUpdateFunc(false)
-    // navigate('/')
     window.location.reload(false);
   }
 
@@ -25,15 +24,11 @@ const Navigation=(props)=> {
     setIsLogoVisible(state);
   }
 
-
   return (
     <nav className={classes.navigation}>
         {isLogoVisible && <img onClick={BackHomePage} src={logoSvg} alt="Youtube logo" className={classes.logoImage}/>}
       <InputSearch showLogo={showLogo} classname={classes.inputSearch} searchHandler={searchHandler}/>
     </nav>
-    
-    // <img onClick={reloadPage} src={logoSvg} alt="Youtube logo" className={classes.logoImage}/>
-
   );
 }
 

@@ -40,7 +40,7 @@ const InputSearch=(props)=>{
         props.searchHandler(searchTerm)
     },[searchTerm])
 
-    const clearInput =(e)=>{
+    const clearInput =()=>{
         inputRef.current.value = '';
         setInputValue('');
         inputRef.current.focus();
@@ -50,20 +50,41 @@ const InputSearch=(props)=>{
         if(window.innerWidth > 640){
             props.showLogo(true);
             setIsSearchBtnClick(false);
+        }else if(window.innerWidth < 640){
+            setIsSearchBtnClick(false);
+            props.showLogo(true);
         }
     }
+
+
+    const setScreenSize =()=>{
+        if(window.innerWidth > 677 && isSearchBtnClick){
+             props.showLogo(true);
+        }
+        if(window.innerWidth < 677 && isSearchBtnClick){
+             props.showLogo(false);
+        }
+        
+    }
+    
+    useEffect(() => {
+      window.addEventListener("resize", setScreenSize);
+      return () => {
+        window.removeEventListener("resize", setScreenSize);
+      };
+    }, []);
 
     const iconClear =  <div onClick={clearInput} className={classes.iconClear}>
     <IoCloseOutline className={classes.inputXMark}/></div>;
 
-    const arrowBackButton =  <button onClick={()=>{setIsSearchBtnClick(false); props.showLogo(true)}} className={classes.arrowBack}>
+    const arrowBackButton =  <button onClick={()=>{ setIsSearchBtnClick(false); props.showLogo(true)}} className={classes.arrowBack}>
     <HiOutlineArrowLeft className={classes.arrowIcon}/>
 </button>
 
-
     return(
-        <form onSubmit={searchHandler} className={`${classes.inputForm} ${ isSearchBtnClick && classes.inputFormActive}`}>
+        <>
            {isSearchBtnClick && arrowBackButton}
+        <form onSubmit={searchHandler} className={`${classes.inputForm} ${ isSearchBtnClick && classes.inputFormActive}`}>
             <div className={classes.inputBox}>
                 <input ref={inputRef} placeholder="Szukaj" onBlur={showLogoAfterBlur}  onChange={inputValueHandler} className={`${classes.inputSearch} ${!isSearchBtnClick && classes.inputSearchResponsive}`}/>
                 
@@ -77,6 +98,7 @@ const InputSearch=(props)=>{
                 </button>
             </div>
         </form>
+        </>
     )
 }
 

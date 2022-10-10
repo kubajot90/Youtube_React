@@ -8,9 +8,9 @@ import './App.css';
 export const API_KEY = React.createContext();
 
 const apiKeys = [
-'AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1Ixxx',
-'AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuwxxx',
-'AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8xxx',
+'AIzaSyA4EWyFfvSUnaOIvJ5iEMYa2oHjZ_cou1I',
+'AIzaSyB202u3kgEqYzVr2WEBBMefmRDXXGOGcuw',
+'AIzaSyDAH74sPDWL8ySNg8jhmH75S8J7n-RbW_8',
 'AIzaSyCvFlxRBJ_OQgnwq5VJsamHP6sQiAbke2k',
 'AIzaSyBNOVRGK5yft4Ch2RWyKOITKHzkT1Y9SgA'
 ]

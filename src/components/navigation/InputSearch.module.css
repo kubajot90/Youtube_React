@@ -16,9 +16,11 @@
 .arrowBack {
     all: unset;
     display: none;
-    position: absolute;
-    top: 9px;
-    left: 3%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 18px 10px;
+    z-index: 999;
 }
 
 .arrowIcon {
@@ -136,7 +138,8 @@
 
 }
 
-@media (max-width: 640px){
+
+@media (max-width: 688px){
     .buttonSearchResponsive {
         all: unset;
     }
@@ -159,5 +162,11 @@
     }
     .arrowBack {
         display: block;
+    }
+}
+
+@media (max-width: 434px){
+    .arrowBack {
+        display: none;
     }
 }
