@@ -86,14 +86,18 @@ const InputSearch=(props)=>{
            {isSearchBtnClick && arrowBackButton}
         <form onSubmit={searchHandler} className={`${classes.inputForm} ${ isSearchBtnClick && classes.inputFormActive}`}>
             <div className={classes.inputBox}>
-                <input ref={inputRef} placeholder="Szukaj" onBlur={showLogoAfterBlur}  onChange={inputValueHandler} className={`${classes.inputSearch} ${!isSearchBtnClick && classes.inputSearchResponsive}`}/>
+                    <input ref={inputRef} placeholder="Szukaj" onBlur={showLogoAfterBlur}  
+                    onChange={inputValueHandler} 
+                    className={`${classes.inputSearch} ${!isSearchBtnClick && classes.inputSearchResponsive}`}
+                    id="inputSearch"
+                />
                 
                 <div className={`${classes.iconBox} ${!isSearchBtnClick && classes.iconBoxResponsive}`}>
-                    <IoSearchOutline className={classes.searchIconFocus}/>
+                    <IoSearchOutline className={classes.searchIconFocus} data-testid="iconBox" />
                 </div>
                     {inputValue && isSearchBtnClick && iconClear}
                     
-                <button type='submit' className={`${classes.buttonSearch} ${!isSearchBtnClick && classes.buttonSearchResponsive}`}>
+                <button aria-label="search" type='submit' className={`${classes.buttonSearch} ${!isSearchBtnClick && classes.buttonSearchResponsive}`}>
                     <IoSearchOutline className={classes.searchIcon}/>
                 </button>
             </div>

@@ -1,7 +1,6 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import logoSvg from '../../assets/YouTube_Logo_2017.svg';
-import InputSearch from './InputSearch';
-// import { useNavigate } from "react-router-dom";
+import InputSearch from './inputSearch/InputSearch';
 import { PlayerOpenUpdateContext } from '../../context/PlayerOpenContext';
 
 import classes from './Navigation.module.css';
@@ -26,8 +25,16 @@ const Navigation=(props)=> {
 
   return (
     <nav className={classes.navigation}>
-        {isLogoVisible && <img onClick={BackHomePage} src={logoSvg} alt="Youtube logo" className={classes.logoImage}/>}
-      <InputSearch showLogo={showLogo} classname={classes.inputSearch} searchHandler={searchHandler}/>
+      {isLogoVisible && <img onClick={BackHomePage} 
+      src={logoSvg} 
+      alt="Youtube logo" 
+      className={classes.logoImage}
+    />}
+      <InputSearch 
+        showLogo={showLogo} 
+        classname={classes.inputSearch} 
+        searchHandler={searchHandler}
+      />
     </nav>
   );
 }
