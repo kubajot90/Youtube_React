@@ -1,15 +1,20 @@
-import { render, screen, MemoryRouter, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import InputSearch from "./InputSearch";
 
 
-it("InputSearch test", ()=>{
-    render(<InputSearch searchHandler={ ()=>{} }/>, { wrapper: BrowserRouter });
+it("InputSearch value", () => {
+    render(<InputSearch searchHandler={ () => {} }/>, { wrapper: BrowserRouter });
     const inputElement = screen.getByPlaceholderText(/szukaj/i);
-    const buttonElement = screen.getByRole('button', { name : /search/i})
-    expect(buttonElement).toBeInTheDocument();
     expect(inputElement).toBeInTheDocument();
     fireEvent.change(inputElement, { target: { value: 'Test' } });
     expect(inputElement).toHaveDisplayValue(/test/i);
-    // fireEvent.click(buttonElement);
+})
+
+it("Search icon appear",  () => {
+    render(<InputSearch searchHandler={ () => {} }/>, { wrapper: BrowserRouter });
+    const inputElement = screen.getByPlaceholderText(/szukaj/i);
+    const iconBox =  screen.getByTestId('iconBox');
+    inputElement.focus();
+    expect(iconBox).toBeVisible();
 })

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import classes from './CommentCard.module.css';
-import DateCounter from './DateCounter';
+import DateCounter from '../counters/DateCounter';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
+import classes from './CommentCard.module.css';
 
 const CommentCard =(props)=>{
     const [comments, setComments] = useState([])
@@ -34,8 +34,6 @@ const CommentCard =(props)=>{
             </div>
         </div>
         )
-        
-        // <p key={comment.id}>{comment.snippet.topLevelComment.snippet.textDisplay}</p>
     })
     setComments(comments)
    }
@@ -49,7 +47,7 @@ const CommentCard =(props)=>{
 
     return(
     <>
-    {comments}
+        {comments}
     </>
     )
 };

@@ -23,14 +23,9 @@ const SubscriberCounter =(props)=>{
     subscriberCountFunc();
   },[props.subscriberAmount])
 
-  // useEffect(()=>{
-    // console.log('props.subscriberAmount', props.subscriberAmount);
-    // console.log('amount', amount);
-  // },[amount])
-
     return(
     <>
-    {amount}
+      {amount}
     </>
     )
 }

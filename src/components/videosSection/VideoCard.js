@@ -1,10 +1,9 @@
 import {useContext} from "react";
-
-import Card from 'react-bootstrap/Card';
-import ViewCounter from './ViewCounter';
-import DateCounter from './DateCounter';
 import { useNavigate } from "react-router-dom";
-import { PlayerOpenUpdateContext } from '../context/PlayerOpenContext';
+import { PlayerOpenUpdateContext } from '../../context/PlayerOpenContext';
+import Card from 'react-bootstrap/Card';
+import ViewCounter from '../counters/ViewCounter';
+import DateCounter from '../counters/DateCounter';
 
 import classes from './VideoCard.module.css';
 
@@ -51,17 +50,21 @@ const VideoCard=(props)=>{
 </div>
   
     return(  
-       <Card onClick={()=>{moveToPlayer(); PlayerOpenUpdateFunc(true)}} style={{ minWidth: '277px', maxWidth: '1096px', backgroundColor:'transparent' }} className={`${props.isSearch ? 'col-12 flex-row' : 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1 '} m-3 flex-grow-1 `}>
+       <Card 
+          onClick={()=>{moveToPlayer(); PlayerOpenUpdateFunc(true)}} 
+          style={{ minWidth: '277px', maxWidth: '1096px', backgroundColor:'transparent' }} 
+          className={`${props.isSearch ? 'col-12 flex-row' : 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1 '} m-3 flex-grow-1 `}
+       >
 
-          <div className={`${props.isSearch ? classes.cardImageBoxWide : classes.cardImageBox}`} style={{backgroundImage: `url('${props.thumbnailUrl}')`}}>
+          <div 
+            className={`${props.isSearch ? classes.cardImageBoxWide : classes.cardImageBox}`} style={{backgroundImage: `url('${props.thumbnailUrl}')`}}
+            data-testid="videoCard" >
           </div>
          
           <Card.Body>
             {props.isSearch ? cardBodyWide : cardBody}
-            </Card.Body>
-          </Card>
-       
-
+          </Card.Body>
+        </Card>
     )
 }
 

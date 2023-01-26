@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { PlayerOpenContext } from '../context/PlayerOpenContext';
+import { PlayerOpenContext } from '../../context/PlayerOpenContext';
 import { MdHomeFilled } from 'react-icons/md';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { IoCompassOutline } from 'react-icons/io5';

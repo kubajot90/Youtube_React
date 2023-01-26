@@ -9,7 +9,12 @@ const ButtonShowMore =(props)=>{
     }
 
     return(
-        <button onClick={()=>{toggleButton(); props.callFunc()} } className={`${classes.descriptionButton} ${isBtnActive && props.isBtnActive && classes.buttonActive}`}> POKAŻ WIĘCEJ</button>
+        <button 
+            onClick={()=>{toggleButton(); props.callFunc()} } 
+            className={`${classes.descriptionButton} ${isBtnActive && props.isBtnActive && classes.buttonActive}`}
+        >
+                POKAŻ WIĘCEJ
+        </button>
     )
 }
 export default ButtonShowMore;

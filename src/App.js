@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Fragment, useState, useRef} from 'react';
-import SideBar from './components/SideBar';
+import SideBar from './components/sideBar/SideBar';
 import Main from './components/Main';
 import PlayerOpenProvider from './context/PlayerOpenContext';
 import './App.css';

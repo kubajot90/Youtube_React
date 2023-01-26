@@ -1,8 +1,8 @@
 import { Fragment, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navigation from "./navigation/Navigation";
-import VideosSection from "./VideosSection";
-import VideoPlayer from "./VideoPlayer";
+import VideosSection from "./videosSection/VideosSection";
+import VideoPlayer from "./videoPlayer/VideoPlayer";
 
 
 

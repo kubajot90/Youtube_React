@@ -2,15 +2,13 @@ import {useEffect, useState, useContext, useRef } from 'react';
 import {useParams} from 'react-router-dom';
 import RelatedVideoCard from './RelatedVideoCard';
 import CommentCard from './CommentCard';
-import SubscriberCounter from './SubscriberCounter';
-import ButtonShowMore from './ButtonShowMore';
+import SubscriberCounter from '../counters/SubscriberCounter';
+import ButtonShowMore from '../button/ButtonShowMore';
 import { Oval } from 'react-loader-spinner'
 import Linkify from 'react-linkify';
-import {API_KEY} from '../App';
-
+import {API_KEY} from '../../App';
 
 import classes from './VideoPlayer.module.css';
-
 
 const VideoPlayer =(props)=>{
     const apiKey= useContext(API_KEY);

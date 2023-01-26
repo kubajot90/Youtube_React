@@ -32,11 +32,10 @@ const ViewCounter =(props)=>{
     viewsCounter()
   },[])
 
-
     return(
-<p className={classes.viewCount}>
-    {views}
-</p>
+      <p className={classes.viewCount}>
+          {views}
+      </p>
     )
 }
 

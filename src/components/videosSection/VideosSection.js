@@ -1,7 +1,7 @@
 import {useEffect, useState, useRef, useContext} from "react";
 import VideoCard from "./VideoCard";
-import LoadingCard from "./LoadingCard";
-import {API_KEY} from '../App';
+import LoadingCard from "../loadingCard/LoadingCard";
+import {API_KEY} from '../../App';
 
 import classes from './VideosSection.module.css';
 
@@ -134,17 +134,20 @@ import classes from './VideosSection.module.css';
                 subscriberCount: profileObj[0].subscriberCount,
             }])
            
-           return  <VideoCard isSearch={isSearch}
-           thumbnailUrl={video.snippet.thumbnails.high.url} 
-           title={video.snippet.title} 
-           channelTitle={video.snippet.channelTitle} 
-           key={video.id.videoId} 
-           id={video.id.videoId} 
-           date={video.snippet.publishedAt}  
-           profileImgUrl={profileObj[0].imgUrl} 
-           viewCount={profileObj[0].videoViews}
-           description={video.snippet.description}
+           return  (
+           <VideoCard 
+                isSearch={isSearch}
+                thumbnailUrl={video.snippet.thumbnails.high.url} 
+                title={video.snippet.title} 
+                channelTitle={video.snippet.channelTitle} 
+                key={video.id.videoId} 
+                id={video.id.videoId} 
+                date={video.snippet.publishedAt}  
+                profileImgUrl={profileObj[0].imgUrl} 
+                viewCount={profileObj[0].videoViews}
+                description={video.snippet.description}
            />
+           )
           
         }
         )
@@ -224,13 +227,22 @@ import classes from './VideosSection.module.css';
 
 return(
     <>
-     <div ref={topLoaderRef} className={classes.topLoaderBox}>
-           {loaderBarWidth > 0 && <div className={classes.topLoader} style={{width: `${loaderBarWidth}%`}}></div>}
-     </div>
-     <div  className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`}>
-            { createCards }
-            {!isSearch && loadingCard}
-    </div>
+        <div 
+            ref={topLoaderRef} 
+            className={classes.topLoaderBox}
+        >
+            {loaderBarWidth > 0 && 
+                <div 
+                    className={classes.topLoader} 
+                    style={{width: `${loaderBarWidth}%`}}>
+                </div>}
+        </div>
+        <div 
+            className={`gx-0 p-2 row justify-content-center ${classes.VideosSection}`} 
+        >
+                { createCards }
+                {!isSearch && loadingCard}
+        </div>
     </>
    
 ) 

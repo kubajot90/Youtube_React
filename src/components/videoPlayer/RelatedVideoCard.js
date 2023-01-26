@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import classes from './RelatedVideoCard.module.css';
-import DateCounter from './DateCounter';
-import {API_KEY} from '../App';
+import DateCounter from '../counters/DateCounter';
+import {API_KEY} from '../../App';
 
 
 const RelatedVideoCard =(props)=>{
