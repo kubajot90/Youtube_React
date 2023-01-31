@@ -4,29 +4,45 @@ import Navigation from "./navigation/Navigation";
 import VideosSection from "./videosSection/VideosSection";
 import VideoPlayer from "./videoPlayer/VideoPlayer";
 
+const Main = (props) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [videosDetails, setVideosDetails] = useState([]);
 
+  const changeVideoDetails = (obj) => {
+    setVideosDetails(obj);
+  };
 
-const Main=(props)=>{
-    const [searchTerm, setSearchTerm] = useState('');
-    const [videosDetails, setVideosDetails] = useState([]);
-    
-    const changeVideoDetails =(obj)=>{
-        setVideosDetails(obj)
-    }
-    
-    const searchHandler =(value)=>{
-        setSearchTerm(value)
-    }
+  const searchHandler = (value) => {
+    setSearchTerm(value);
+  };
 
-    return(
-        <Fragment>
-            <Navigation searchHandler={searchHandler}/>
-            <Routes>
-                <Route path='/' element={<VideosSection iskeyValid={props.iskeyValid} key={props.key} searchHandler={searchTerm} onChangeVideoDetails={changeVideoDetails}/>}/>
-                <Route path='/:id' element={<VideoPlayer videosDetails={videosDetails} onChangeVideoDetails={changeVideoDetails}/>}/>
-            </Routes>
-        </Fragment>
-    )
-}
+  return (
+    <Fragment>
+      <Navigation searchHandler={searchHandler} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <VideosSection
+              iskeyValid={props.iskeyValid}
+              key={props.key}
+              searchHandler={searchTerm}
+              onChangeVideoDetails={changeVideoDetails}
+            />
+          }
+        />
+        <Route
+          path="/:id"
+          element={
+            <VideoPlayer
+              videosDetails={videosDetails}
+              onChangeVideoDetails={changeVideoDetails}
+            />
+          }
+        />
+      </Routes>
+    </Fragment>
+  );
+};
 
 export default Main;
